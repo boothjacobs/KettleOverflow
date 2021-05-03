@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h2 Login
+    form(action="/users/login", method="post")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        div
+            label(for="username") Username
+            input(type="text" name="username")
+        div
+            label(for="password") Password
+            input(type="password" name="password")
+        div
+            button(type="submit") Login
+    div
+        p: a(href="/users/signup") Need to sign up?

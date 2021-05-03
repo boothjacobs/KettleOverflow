@@ -9,24 +9,26 @@ const loginUser = (req, res, user) => {
 const logoutUser = (req, res) => {
   delete req.session.auth;
 };
-/*
+
 const requireAuth = (req, res, next) => {
   if (!res.locals.authenticated) {
-    return res.redirect('/user/login');
+    return res.redirect('/users/login');
   }
   return next();
 };
+
 const restoreUser = async (req, res, next) => {
   // Log the session object to the console
   // to assist with debugging.
   console.log(req.session);
+  console.log(res.locals), 'Locals';
   if (req.session.auth) {
     const { userId } = req.session.auth;
     try {
       const user = await db.User.findByPk(userId);
       if (user) {
         res.locals.authenticated = true;
-        res.locals.user = user;
+        // res.locals.user = user;
         next();
       }
     } catch (err) {
@@ -38,7 +40,7 @@ const restoreUser = async (req, res, next) => {
     next();
   }
 };
-*/
+
 
 
 
@@ -46,4 +48,4 @@ const restoreUser = async (req, res, next) => {
 
 
 //export authentication functions
-module.exports = { logInUser, logOutUser, requireAuth, restoreUser }
+module.exports = { loginUser, logoutUser, requireAuth, restoreUser }
