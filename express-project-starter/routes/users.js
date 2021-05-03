@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { loginUser } = require('../auth')
 const { check, validationResult } = require('express-validator');
@@ -35,11 +36,63 @@ const loginValidators = [
 router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ where: { username } })
+  let errors = [];
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    const user = await User.findOne({ where: { username } });
+
+    if (user !== null) {
+      const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+
+      if (passwordMatch) {
+        loginUser(req, res, user);
+        res.redirect('/');
+      };
+    };
+    errors.push("Login failed for the provided username and password.")
+  } else {
+    errors = validatorErrors.array().map((error) => error.msg);
+    res.render('login', { errors, csrfToken: req.csrfToken() })
+  }
+}));
+
+router.get('/signup', csrfProtection, asyncHandler(async (req, res) => {
+  const user = await User.build();
+  res.render('signup', {
+    csrfToken: req.csrfToken(),
+    user
+  });
+}) );
+
+const signupValidators = [
+  check('email')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email')
+    .isLength({ max: 50 })
+    .withMessage('Email must not be more than 50 characters long'),
+  check('confirmPassword')
+    .exists({ checkFalsy: true })
+    .withMessage('Please confirm Password')
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Confirm Password does not match Password');
+      }
+      return true;
+    })
+];
+
+router.post('/signup', csrfProtection, loginValidators, signupValidators, asyncHandler(async (req, res) => {
+  const { username, email, password, confirmPassword } = req.body;
+
+  //bcrypt
+
+  const user = await User.build({ username, email });
 
   loginUser(req, res, user);
   res.redirect('/');
 
 }))
+
 
 module.exports = router;

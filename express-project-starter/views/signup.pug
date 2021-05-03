@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Create a New User
+    form(method="post" action="/users/signup")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        div
+            label(for="username") Username
+            input(type="text" name="username")
+        div
+            label(for="email") Email
+            input(type="email" name="email")
+        div
+            label(for="password") Password
+            input(type="password" name="password")
+        div
+            label(for="confirmPassword") Confirm Password
+            input(type="password" name="confirmPassword")
+        div
+            button(type="submit") Sign Up
+    div
+        p: a(href="/users/login") Already have an account?

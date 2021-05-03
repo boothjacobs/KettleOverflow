@@ -1,6 +1,10 @@
 extends layout
 
 block content
+    if errors
+        div(class="error-list")
+            each error in errors
+                p #{error}
     h2 Login
     form(action="/users/login", method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
