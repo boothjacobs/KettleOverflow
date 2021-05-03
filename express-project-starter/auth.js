@@ -8,6 +8,7 @@ const loginUser = (req, res, user) => {
 };
 const logoutUser = (req, res) => {
   delete req.session.auth;
+  //is this supposed to delete a cookie?
 };
 
 const requireAuth = (req, res, next) => {
@@ -28,7 +29,7 @@ const restoreUser = async (req, res, next) => {
       const user = await db.User.findByPk(userId);
       if (user) {
         res.locals.authenticated = true;
-        // res.locals.user = user;
+        res.locals.user = user;
         next();
       }
     } catch (err) {
@@ -48,4 +49,6 @@ const restoreUser = async (req, res, next) => {
 
 
 //export authentication functions
-module.exports = { loginUser, logoutUser, requireAuth, restoreUser }
+
+//
+module.exports = { loginUser, logoutUser, restoreUser, requireAuth }

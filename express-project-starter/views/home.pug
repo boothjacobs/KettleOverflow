@@ -7,5 +7,17 @@ append head
   script(src="/javascripts/home-action.js" type="module" defer)
 
 block content
+  nav
+    div
+      //- search bar
+    div
+      if locals.authenticated
+        form(method="post" action="/users/logout")
+          button(type="submit") Log Out
+      else
+        div
+          a(href="/users/login") Log In
+        div
+          a(href="/users/signup") Sign Up
   h1= title
   p Welcome to your Project Skeleton

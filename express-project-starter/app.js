@@ -13,7 +13,6 @@ const { sessionSecret } = require('./config');
 const app = express();
 
 
-
 // view engine setup
 app.set('view engine', 'pug');
 
@@ -22,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(sessionSecret));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
@@ -34,6 +34,7 @@ app.use(
     resave: false,
   })
 );
+
 
 // create Session table if it doesn't already exist
 store.sync();
