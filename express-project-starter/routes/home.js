@@ -2,10 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { csrfProtection, asyncHandler } = require('./utils');
 
-
-/* GET users listing. */
+/* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.render('home', { title: 'a/A Express Skeleton Home' });
 });
 
 module.exports = router;
