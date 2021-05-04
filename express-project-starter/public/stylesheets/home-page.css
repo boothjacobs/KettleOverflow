@@ -1,0 +1,55 @@
+.navbar {
+    background-color: #A9A454;
+    overflow: hidden;
+}
+
+.logo-section {
+    padding-top: 10px;
+}
+
+#kettle-overflow {
+    text-decoration: none;
+    float: left;
+    margin: 10px 0px;
+}
+
+#kettle-image {
+    float: left;
+    width: 75px;
+    height: 40px;
+}
+
+
+#signup-button,
+#login-button,
+#logout-button {
+    float: right;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+#login-link,
+#signup-link,
+#logout-link {
+    text-decoration: none;
+}
+
+#login-button :hover,
+#signup-button :hover,
+#logout-button :hover {
+    background-color: #556B2F;
+    color: #EFE4D4;
+}
+
+#search-bar {
+    float: right;
+    display: block;
+    padding: 6px;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-right: 15px;
+}
