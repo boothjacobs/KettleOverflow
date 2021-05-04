@@ -1,6 +1,7 @@
 .navbar {
     background-color: #A9A454;
     overflow: hidden;
+    width: 100%;
 }
 
 .logo-section {
@@ -10,15 +11,15 @@
 #kettle-overflow {
     text-decoration: none;
     float: left;
-    margin: 10px 0px;
+    margin: 20px 0px;
 }
 
 #kettle-image {
     float: left;
-    width: 75px;
+    width: 40px;
     height: 40px;
+    margin: 7px 5px;
 }
-
 
 #signup-button,
 #login-button,
@@ -52,4 +53,42 @@
     font-size: 15px;
     margin-top: 10px;
     margin-right: 15px;
+}
+
+.sidebar {
+    margin: 0px;
+    width: 250px;
+    padding: 0px;
+    background-color: #b07946;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+#link-1,
+#link-2,
+#link-3 {
+    text-align: center;
+    padding: 20px;
+}
+
+.body-content {
+    margin-left: 250px;
+    padding: 5px 15px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #A9A454;
+    width: 100%;
+    padding: 10px 0px;
+    bottom: 0;
+    overflow: hidden;
+    position: fixed;
+}
+
+.made-by {
+    color: black;
+    float: right;
+    padding: 10px;
 }
