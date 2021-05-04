@@ -39,7 +39,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-   ], {});
+    ], {});
   },
 
   down: (queryInterface, Sequelize) => {
@@ -49,6 +49,6 @@ module.exports = {
 
       Example:
       */
-   return queryInterface.bulkDelete('Questions', null, {});
+    return queryInterface.bulkDelete('Questions', null, {});
   }
 };
