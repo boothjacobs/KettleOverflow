@@ -48,7 +48,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
       if (passwordMatch) {
         loginUser(req, res, user);
-        res.redirect('/');
+        req.session.save(() => res.redirect("/"));
       }
       else {
         errors.push("Login failed for the provided username and password.")
@@ -120,7 +120,7 @@ router.post('/signup', csrfProtection, loginValidators, signupValidators, asyncH
 
 router.post("/logout", (req, res) => {
   logoutUser(req, res);
-  res.redirect('/');
+  req.session.save(() => res.redirect("/"));
 });
 
 
