@@ -5,6 +5,7 @@ const loginUser = (req, res, user) => {
   req.session.auth = {
     userId: user.id,
   };
+  console.log(req.session.auth)
 };
 const logoutUser = (req, res) => {
   delete req.session.auth;
@@ -19,9 +20,9 @@ const requireAuth = (req, res, next) => {
 };
 
 const restoreUser = async (req, res, next) => {
-  
+
   console.log(req.session);
-  // console.log(res.locals), 'Locals';
+  // console.log(res.locals, 'Locals');
   if (req.session.auth) {
     const { userId } = req.session.auth;
     try {
@@ -29,6 +30,7 @@ const restoreUser = async (req, res, next) => {
       if (user) {
         res.locals.authenticated = true;
         res.locals.user = user;
+        // console.log(res.locals.user);
         next();
       }
     } catch (err) {
