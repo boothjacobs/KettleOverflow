@@ -1,20 +1,27 @@
 extends layout
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/login.css")
+  script(src="/javascripts/demo-login.js" type="module" defer)
+
 block content
     if errors
         div(class="error-list")
             each error in errors
                 p #{error}
-    h2 Login
-    form(action="/users/login", method="post")
-        input(type="hidden" name="_csrf" value=csrfToken)
-        div
-            label(for="username") Username
-            input(type="text" name="username")
-        div
-            label(for="password") Password
-            input(type="password" name="password")
-        div
-            button(type="submit") Login
-    div
-        p: a(href="/users/signup") Need to sign up?
+    div(id="grid-container")
+        div(id="login-header"): h1 🍵
+        div(id="login-box")
+            form(action="/users/login" method="post" id="login-form")
+                input(type="hidden" name="_csrf" value=csrfToken)
+                div(id="username-entry")
+                    div: label(for="username") Username
+                    div: input(type="text" name="username" size=30)
+                div(id="password-entry")
+                    div: label(for="password") Password
+                    div: input(type="password" name="password" size=30)
+            div(id="buttons")
+                div(id="main-login-button"): button(type="submit" form="login-form") Log in
+                div(id="demo-user-button"): button(type="button") Demo User
+        div(id="sign-up-link"): a(href="/users/signup") Need to sign up?
