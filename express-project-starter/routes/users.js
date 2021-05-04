@@ -1,12 +1,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const router = express.Router();
-const { loginUser, logoutUser, restoreUser } = require('../auth')
+const { loginUser, logoutUser } = require('../auth')
 const { check, validationResult } = require('express-validator');
 const { User } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 
-router.use(restoreUser);
+// router.use(restoreUser);
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -49,13 +49,21 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
       if (passwordMatch) {
         loginUser(req, res, user);
         res.redirect('/');
-      };
-    };
-    errors.push("Login failed for the provided username and password.")
-  } else {
+      }
+      else {
+        errors.push("Login failed for the provided username and password.")
+      }
+    }
+    else {
+      errors.push("Login failed for the provided username and password.")
+    }
+  }
+  else {
     errors = validatorErrors.array().map((error) => error.msg);
     res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
   }
+  // errors = validatorErrors.array().map((error) => error.msg);
+  res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
 }));
 
 router.get('/signup', csrfProtection, asyncHandler(async (req, res) => {
@@ -65,7 +73,7 @@ router.get('/signup', csrfProtection, asyncHandler(async (req, res) => {
     title: "Sign Up Page",
     user
   });
-}) );
+}));
 
 const signupValidators = [
   check('email')
@@ -91,21 +99,21 @@ router.post('/signup', csrfProtection, loginValidators, signupValidators, asyncH
   //bcrypt
   const validatorErrors = validationResult(req);
 
-    if (validatorErrors.isEmpty()) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      user.hashedPassword = hashedPassword;
-      await user.save();
-      loginUser(req, res, user);
-      res.redirect('/');
-    } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('signup', {
-        title: 'Sign Up',
-        user,
-        errors,
-        csrfToken: req.csrfToken(),
-      });
-    }
+  if (validatorErrors.isEmpty()) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.hashedPassword = hashedPassword;
+    await user.save();
+    loginUser(req, res, user);
+    req.session.save(() => res.redirect("/"));
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render('signup', {
+      title: 'Sign Up',
+      user,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }
 
   // res.redirect('/');
 }));
