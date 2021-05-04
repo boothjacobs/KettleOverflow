@@ -1,0 +1,60 @@
+body {
+    background-color: #d6d9dc;
+}
+
+#grid-container {
+    position: relative;
+    top: 100px;
+    left: 25%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: 1;
+    grid-template-rows: 75px 300px 100px;
+    max-width: 500px;
+}
+
+#login-header {
+    grid-row: 1;
+}
+
+#login-box {
+    box-sizing: border-box;
+    height: 200px;
+    width: 250px;
+    background-color: white;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 0px 15px darkgrey;
+    border-radius: 10px;
+}
+
+#login-form {
+    font-weight: 800;
+    /* order: 2; */
+}
+
+#username-entry {
+    margin: 10px;
+}
+
+#password-entry {
+    margin: 10px;
+}
+
+#main-login-button {
+    margin: 5px;
+    width: 200px;
+}
+
+#demo-user-button {
+    margin: 5px;
+    width: 200px;
+}
+
+#sign-up-link {
+    grid-row: 3;
+}
