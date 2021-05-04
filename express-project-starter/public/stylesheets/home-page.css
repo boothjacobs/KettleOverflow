@@ -2,6 +2,7 @@
     background-color: #A9A454;
     overflow: hidden;
     width: 100%;
+    top: 0;
 }
 
 .logo-section {
@@ -47,21 +48,22 @@
 }
 
 #search-bar {
-    float: right;
-    display: block;
-    padding: 6px;
+    width: 500px;
+    height: 30px;
+    float: none;
+    position: absolute;
+    top: 5%;
+    left: 55%;
     font-size: 15px;
-    margin-top: 10px;
-    margin-right: 15px;
+    transform: translate(-50%, -50%);
 }
 
 .sidebar {
-    margin: 0px;
     width: 250px;
     padding: 0px;
     background-color: #b07946;
     position: fixed;
-    height: 100%;
+    height: 70%;
     overflow: auto;
 }
 
