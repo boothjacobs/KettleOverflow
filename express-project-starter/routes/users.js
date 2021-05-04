@@ -48,22 +48,24 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
       const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
       if (passwordMatch) {
         loginUser(req, res, user);
-        req.session.save(() => res.redirect("/"));
+        req.session.save(() => {
+          res.redirect("/")
+        });
       }
       else {
         errors.push("Login failed for the provided username and password.")
+        res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
       }
     }
     else {
       errors.push("Login failed for the provided username and password.")
+      res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
     }
   }
   else {
     errors = validatorErrors.array().map((error) => error.msg);
     res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
   }
-  // errors = validatorErrors.array().map((error) => error.msg);
-  res.render('login', { errors, title: "Login Page", csrfToken: req.csrfToken() })
 }));
 
 router.get('/signup', csrfProtection, asyncHandler(async (req, res) => {
