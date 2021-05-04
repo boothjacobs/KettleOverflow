@@ -61,6 +61,6 @@ module.exports = {
 
       Example:
       */
-   return queryInterface.bulkDelete('Answers', null, {});
+    return queryInterface.bulkDelete('Answers', null, {});
   }
 };

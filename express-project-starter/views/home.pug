@@ -2,22 +2,36 @@ extends layout
 
 append head
   //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/home-page.css")
   //- add page specific js
   script(src="/javascripts/home-action.js" type="module" defer)
 
 block content
-  nav
+  nav(class="navbar")
+    div(class="logo-section")
+      img(src="/kettle.png" id="kettle-image")
+      a(href="/" id="kettle-overflow") Kettle Overflow
     div
-      //- search bar
-    div
+      input(type="text" placeholder="Search..." id="search-bar")
+    div(id="logout-button")
       if locals.authenticated
-        form(method="post" action="/users/logout")
-          button(type="submit") Log Out
+        a(href="/users/login" id="logout-link") Log Out
       else
-        div
-          a(href="/users/login") Log In
-        div
-          a(href="/users/signup") Sign Up
-  h1= title
-  p Welcome to your Project Skeleton
+        div(id="login-button")
+          a(href="/users/login" id="login-link") Log In
+        div(id="signup-button")
+          a(href="/users/signup" id="logout-link") Sign Up
+  div(class="sidebar")
+    div(id="link-1")
+      h3 Placeholder
+    div(id="link-2")
+      h3 Placeholder 
+    div(id="link-3")
+      h3 Placeholder 
+  div(class="body-content") 
+    h1 Home Page
+    p Welcome to your Project Skeleton
+  div(class="footer")
+    div(class="made-by")
+      h3 Brewed Up By Sarah, Drew, & Lauren 
+      
