@@ -1,20 +1,25 @@
 extends layout
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  
 block content
     if errors
         div(class="error-list")
             each error in errors
                 p #{error}
-    h2 Login
-    form(action="/users/login", method="post")
-        input(type="hidden" name="_csrf" value=csrfToken)
-        div
-            label(for="username") Username
-            input(type="text" name="username")
-        div
-            label(for="password") Password
-            input(type="password" name="password")
-        div
-            button(type="submit") Login
+    div: h2 🍵
+    div
+        form(action="/users/login", method="post")
+            input(type="hidden" name="_csrf" value=csrfToken)
+            div
+                label(for="username") Username
+                input(type="text" name="username")
+            div
+                label(for="password") Password
+                input(type="password" name="password")
+            div
+                button(type="submit") Log in
     div
         p: a(href="/users/signup") Need to sign up?
