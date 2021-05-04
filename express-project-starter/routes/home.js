@@ -5,7 +5,7 @@ const { csrfProtection, asyncHandler } = require('./utils');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log("We are on the home page ------------", res.locals.authenticated)
+  console.log("We are on the home page ------------", req.session)
   res.render('home', { title: 'a/A Express Skeleton Home' });
 });
 

@@ -1,0 +1,10 @@
+extends layout
+
+//- where to put title?
+block content
+     form(action="/questions", method="post")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        div
+            textarea(name="content", cols="30", rows="10" placeholder="Write you question here!")
+        div
+            button(type="submit") Submit Question
