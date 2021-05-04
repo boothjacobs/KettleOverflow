@@ -3,19 +3,20 @@ body {
 }
 
 #grid-container {
-    position: relative;
-    top: 100px;
-    left: 25%;
+    width: auto;
+    margin: auto;
     display: grid;
     justify-items: center;
     align-items: center;
     grid-template-columns: 1;
-    grid-template-rows: 75px 300px 100px;
+    grid-template-rows: 150px 300px 100px;
     max-width: 500px;
 }
 
 #login-header {
     grid-row: 1;
+    height: 125px;
+    width: 125px;
 }
 
 #login-box {

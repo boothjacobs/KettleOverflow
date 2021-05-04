@@ -11,7 +11,7 @@ block content
             each error in errors
                 p #{error}
     div(id="grid-container")
-        div(id="login-header"): h1 🍵
+        div: img(src="/kettle.png" id="login-header")
         div(id="login-box")
             form(action="/users/login" method="post" id="login-form")
                 input(type="hidden" name="_csrf" value=csrfToken)
