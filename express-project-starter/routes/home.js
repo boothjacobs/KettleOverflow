@@ -4,6 +4,7 @@ const { csrfProtection, asyncHandler } = require('./utils');
 const { restoreUser } = require('../auth');
 
 router.use(restoreUser);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   console.log(req.session.auth)
