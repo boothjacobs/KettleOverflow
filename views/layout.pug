@@ -5,15 +5,16 @@ html
         title= title
         link(rel='stylesheet' href='/stylesheets/reset.css')
         link(rel="stylesheet" href="/stylesheets/layout.css")
-  div 
+        script(src="/javascripts/search-button.js" type="module" defer)
+  div
     nav(class="navbar")
       div(class="logo-section")
         img(src="/kettle.png" id="kettle-image")
         a(href="/" id="kettle-overflow") Kettle Overflow
       div(class="search")
-        form(action="/questions" method="post") 
-          input(type="text" placeholder="Search..." id="search-bar")
-          button(type="submit" id="submit-search") Submit 
+        form(action="/questions" method="post")
+          input(type="text" placeholder="Search..." id="search-bar" name="content")
+          button(type="submit" id="submit-search") Submit
       div(id="logout-button")
         if locals.authenticated
           a(href="/users/login" id="logout-link") Log Out
