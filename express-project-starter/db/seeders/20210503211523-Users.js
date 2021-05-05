@@ -23,6 +23,13 @@ module.exports = {
     createdAt: new Date(),
     updatedAt: new Date()
   },
+  {
+    username: "oolong",
+    email: "oolong@email.com",
+    hashedPassword: "$2a$10$QcdAi9eJO6ct5WHfBgsUwuw0Qd9FRJyt3SRaWsOAteIXoj3fQbGfK",
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
   ], {});
   },
 

@@ -23,5 +23,6 @@ block content
                     div: input(type="password" name="password" size=30)
             div(class="buttons-div")
                 div: button(type="submit" form="login-form" id="main-login-button") Log in
-                div: button(type="button" class="demo-user-button") Demo User
+                form(action="/users/demo" method="post" id="demo-form")
+                    div: button(type="submit" class="demo-user-button") Demo User
         div(class="switch-link"): a(href="/users/signup") Need to sign up?
