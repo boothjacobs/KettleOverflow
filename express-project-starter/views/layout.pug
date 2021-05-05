@@ -4,14 +4,16 @@ html
       block head
         title= title
         link(rel='stylesheet' href='/stylesheets/reset.css')
-        link(rel="stylesheet" href="/stylesheets/home-page.css")
-  div
+        link(rel="stylesheet" href="/stylesheets/layout.css")
+  div 
     nav(class="navbar")
       div(class="logo-section")
         img(src="/kettle.png" id="kettle-image")
         a(href="/" id="kettle-overflow") Kettle Overflow
-      div
-        input(type="text" placeholder="Search..." id="search-bar")
+      div(class="search")
+        form(action="/questions" method="post") 
+          input(type="text" placeholder="Search..." id="search-bar")
+          button(type="submit" id="submit-search") Submit 
       div(id="logout-button")
         if locals.authenticated
           a(href="/users/login" id="logout-link") Log Out
