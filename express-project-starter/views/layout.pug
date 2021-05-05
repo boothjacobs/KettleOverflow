@@ -2,7 +2,7 @@ doctype html
 html
   head
       block head
-        title="Kettle Overflow"
+        title= title
         link(rel='stylesheet' href='/stylesheets/reset.css')
         link(rel="stylesheet" href="/stylesheets/layout.css")
   div 
@@ -22,9 +22,9 @@ html
             a(href="/users/login" id="login-link") Log In
           div(id="signup-button")
             a(href="/users/signup" id="logout-link") Sign Up
-    div 
+    div
       div(class="footer")
         div(class="made-by")
-          h3 Brewed Up By Sarah, Drew, & Lauren 
+          h3 Brewed Up By Sarah, Drew, & Lauren
 
     block content
