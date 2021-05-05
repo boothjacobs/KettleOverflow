@@ -1,6 +1,18 @@
 extends layout
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  //- add page specific js
+  script(src="/javascripts/home-action.js" type="module" defer)
+
 block content
-    div
-        h1= question.content
+    div(class='question')
+        h1(class='question-content')= question.content
+    div(class='question-extra')
         p Question asked by #{question.User.username}
+        if locals.user.id === question.userId
+            button(class='edit') Edit
+    each answer in question.Answers
+        div
+            p= answer.content
