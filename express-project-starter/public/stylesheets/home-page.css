@@ -1,67 +1,8 @@
-.navbar {
-    background-color: #A9A454;
-    overflow: hidden;
-    width: 100%;
-    top: 0;
-}
-
-.logo-section {
-    padding-top: 10px;
-}
-
-#kettle-overflow {
-    text-decoration: none;
-    float: left;
-    margin: 20px 0px;
-}
-
-#kettle-image {
-    float: left;
-    width: 40px;
-    height: 40px;
-    margin: 7px 5px;
-}
-
-#signup-button,
-#login-button,
-#logout-button {
-    float: right;
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 10px;
-    font-size: 15px;
-    box-sizing: border-box;
-}
-
-#login-link,
-#signup-link,
-#logout-link {
-    text-decoration: none;
-}
-
-#login-button :hover,
-#signup-button :hover,
-#logout-button :hover {
-    background-color: #556B2F;
-    color: #EFE4D4;
-}
-
-#search-bar {
-    width: 500px;
-    height: 30px;
-    float: none;
-    position: absolute;
-    top: 5%;
-    left: 55%;
-    font-size: 15px;
-    transform: translate(-50%, -50%);
-}
-
 .sidebar {
     width: 250px;
     padding: 0px;
-    background-color: #b07946;
+    background-color: #cc8c52;
+    opacity: 70%;
     position: fixed;
     height: 70%;
     overflow: auto;
@@ -71,26 +12,12 @@
 #link-2,
 #link-3 {
     text-align: center;
-    padding: 20px;
+    padding: 30px;
+    color: black;
 }
 
 .body-content {
     margin-left: 250px;
-    padding: 5px 15px;
+    padding: 10px 15px;
     text-align: center;
-}
-
-.footer {
-    background-color: #A9A454;
-    width: 100%;
-    padding: 10px 0px;
-    bottom: 0;
-    overflow: hidden;
-    position: fixed;
-}
-
-.made-by {
-    color: black;
-    float: right;
-    padding: 10px;
 }
