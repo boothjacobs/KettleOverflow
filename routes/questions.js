@@ -5,6 +5,7 @@ const { requireAuth } = require('../auth') //Need login/ logout
 const { check, validationResult } = require('express-validator');
 const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
+const { Op } = require("sequelize");
 
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
     const questions = await Question.findAll({
@@ -16,20 +17,22 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
     res.render('home', {
         csrfToken: req.csrfToken(),
         questions
-    });
+    })
 }));
 
 router.post('/', asyncHandler(async (req, res, next) => {
     const { content } = req.body;
-    const searchedQ = await Question.findAll({
+    const questions = await Question.findAll({
         include: [ User ],
         where: {
-            content: content
+            content: {
+                [Op.substring]: content,
+            }
         }
     });
 
     res.render('home', {
-        searchedQ
+        questions
     });
 }));
 
@@ -37,7 +40,7 @@ router.get('/form', requireAuth, csrfProtection, function (req, res, next) {
     res.render('question-form', {
         csrfToken: req.csrfToken(),
         title: "Question Form"
-    });
+    })
 });
 
 router.post('/form', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
@@ -46,27 +49,26 @@ router.post('/form', requireAuth, csrfProtection, asyncHandler(async (req, res) 
     await Question.create({
         content,
         userId
-    });
+    })
     res.redirect('/')
-}));
+}))
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] },
-    );
-    console.log(question)
+                                             
     res.render('question', {
         question,
-    });
-}));
+    })
+}))
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
-    const questionId = req.params.id;
+    const questionId = req.params.id
 
-    const question = await Question.findByPk(questionId);
-    question.content = req.body.content;
-    await question.save();
-    res.sendStatus(201);
-}));
+    const question = await Question.findByPk(questionId)
+    question.content = req.body.content
+    await question.save()
+    res.sendStatus(201)
+}))
 
 module.exports = router;
