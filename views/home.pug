@@ -17,5 +17,13 @@ block content
   div(class="body-content") 
     h1 Home Page
     p Welcome to your Project Skeleton
-  
-      
+  table(class="questions-table")
+    thead(class="head-questions-table")
+      tr 
+        th(id="User-Table") User 
+        th(id="Question-Table") Question 
+    tbody 
+      each question in questions 
+        tr 
+          td(id="usernames")= question.User.username
+          td(id="question-body")= question.content  

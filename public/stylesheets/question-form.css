@@ -1,0 +1,37 @@
+body {
+    background-color: #EFE4D4;
+}
+.question-form {
+
+    box-sizing: border-box;
+    /* padding-top: 5%; */
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+textarea {
+    height: 50vh;
+    width: 50vw;
+    resize: none;
+    border: solid 5px #A9A454;
+    outline: none;
+    font-size: xx-large;
+    border-radius: 1%;
+}
+
+#submit-question {
+    background-color: #b07946;
+    border-right: 0;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 30px;
+}
+
+#submit-question:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
+}
