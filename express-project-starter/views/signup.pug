@@ -29,5 +29,6 @@ block content
                     input(type="password" name="confirmPassword" size=30)
             div(class="buttons-div")
                 div: button(type="submit" form="signup-form" id="main-signup-button") Sign Up
-                div: button(type="button" class="demo-user-button") Demo User
+                form(action="/users/demo" method="post" id="demo-form")
+                    div: button(type="submit" class="demo-user-button") Demo User
         div(class="switch-link"): a(href="/users/login") Already have an account?

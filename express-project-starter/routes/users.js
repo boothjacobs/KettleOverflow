@@ -6,9 +6,6 @@ const { check, validationResult } = require('express-validator');
 const { User } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 
-// router.use(restoreUser);
-
-/* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
@@ -98,7 +95,6 @@ router.post('/signup', csrfProtection, loginValidators, signupValidators, asyncH
   const { username, email, password } = req.body;
   const user = await User.build({ username, email });
 
-  //bcrypt
   const validatorErrors = validationResult(req);
 
   if (validatorErrors.isEmpty()) {
@@ -117,13 +113,23 @@ router.post('/signup', csrfProtection, loginValidators, signupValidators, asyncH
     });
   }
 
-  // res.redirect('/');
 }));
 
 router.post("/logout", (req, res) => {
   logoutUser(req, res);
   req.session.save(() => res.redirect("/"));
 });
+
+router.post("/demo", asyncHandler(async (req, res) => {
+  const user = await User.findByPk(3);
+
+  loginUser(req, res, user);
+
+  // req.session.save(() => {
+    res.redirect("/questions")
+  // });
+  // res.sendStatus(200);
+}))
 
 
 module.exports = router;

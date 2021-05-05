@@ -27,8 +27,8 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] },
     )
-    console.log(res.locals.user.id)
-    console.log(question.userId)
+    // console.log(res.locals.user.id)
+    // console.log(question.userId)
     res.render('question', {
         question,
     })
@@ -38,11 +38,11 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const questionId = req.params.id
 
     const question = await Question.findByPk(questionId)
-    console.log(question.content, 'BEFORE CHANGE')
-    console.log(req.body, 'CHANGE TO THIS')
+    // console.log(question.content, 'BEFORE CHANGE')
+    // console.log(req.body, 'CHANGE TO THIS')
     question.content = req.body.content
     await question.save()
-    console.log(question.content, '------------------------')
+    // console.log(question.content, '------------------------')
     res.sendStatus(201)
 }))
 
