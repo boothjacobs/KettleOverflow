@@ -4,5 +4,25 @@ html
       block head
         title="Kettle Overflow"
         link(rel='stylesheet' href='/stylesheets/reset.css')
-  body
+        link(rel="stylesheet" href="/stylesheets/home-page.css")
+  div 
+    nav(class="navbar")
+      div(class="logo-section")
+        img(src="/kettle.png" id="kettle-image")
+        a(href="/" id="kettle-overflow") Kettle Overflow
+      div
+        input(type="text" placeholder="Search..." id="search-bar")
+      div(id="logout-button")
+        if locals.authenticated
+          a(href="/users/login" id="logout-link") Log Out
+        else
+          div(id="login-button")
+            a(href="/users/login" id="login-link") Log In
+          div(id="signup-button")
+            a(href="/users/signup" id="logout-link") Sign Up
+    div 
+      div(class="footer")
+        div(class="made-by")
+          h3 Brewed Up By Sarah, Drew, & Lauren 
+
     block content
