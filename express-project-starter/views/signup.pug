@@ -1,24 +1,33 @@
 extends layout
 
-block head
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/login-signup.css")
+  script(src="/javascripts/demo-login.js" type="module" defer)
 
 block content
-    h1 Create a New User
-    form(method="post" action="/users/signup")
-        input(type="hidden" name="_csrf" value=csrfToken)
-        div
-            label(for="username") Username
-            input(type="text" name="username")
-        div
-            label(for="email") Email
-            input(type="email" name="email")
-        div
-            label(for="password") Password
-            input(type="password" name="password")
-        div
-            label(for="confirmPassword") Confirm Password
-            input(type="password" name="confirmPassword")
-        div
-            button(type="submit") Sign Up
-    div
-        p: a(href="/users/login") Already have an account?
+    if errors
+        div(class="error-list")
+            each error in errors
+                p #{error}
+    div(class="grid-container")
+        div: img(src="/kettle.png" class="login-header")
+        div(class="form-box")
+            form(method="post" action="/users/signup" id="signup-form")
+                input(type="hidden" name="_csrf" value=csrfToken)
+                div(class="username-entry")
+                    label(for="username") Username
+                    input(type="text" name="username" size=30)
+                div(class="email-entry")
+                    label(for="email") Email
+                    input(type="email" name="email" size=30)
+                div(class="password-entry")
+                    label(for="password") Password
+                    input(type="password" name="password" size=30)
+                div(class="confirm-entry")
+                    label(for="confirmPassword") Confirm Password
+                    input(type="password" name="confirmPassword" size=30)
+            div(class="buttons-div")
+                div: button(type="submit" form="signup-form" id="main-signup-button") Sign Up
+                div: button(type="button" class="demo-user-button") Demo User
+        div(class="switch-link"): a(href="/users/login") Already have an account?
