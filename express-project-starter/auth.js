@@ -8,7 +8,6 @@ const loginUser = (req, res, user) => {
 };
 const logoutUser = (req, res) => {
   delete req.session.auth;
-  //is this supposed to delete a cookie?
 };
 
 const requireAuth = (req, res, next) => {
@@ -20,7 +19,7 @@ const requireAuth = (req, res, next) => {
 
 const restoreUser = async (req, res, next) => {
 
-  console.log(req.session);
+  // console.log(req.session);
   if (req.session.auth) {
     const { userId } = req.session.auth;
     try {
