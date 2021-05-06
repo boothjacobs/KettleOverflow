@@ -16,7 +16,8 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 
     res.render('home', {
         csrfToken: req.csrfToken(),
-        questions
+        questions,
+        title: 'Questions page'
     })
 }));
 
@@ -43,22 +44,49 @@ router.get('/form', requireAuth, csrfProtection, function (req, res, next) {
     })
 });
 
-router.post('/form', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+const questionValidators = [
+    check('content')
+      .exists({ checkFalsy: true })
+      .withMessage('The question field can not be empty')
+      .isLength({ min: 10 })
+      .withMessage('Question must be at least 10 characters long'),
+  ];
+
+router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandler(async (req, res) => {
     const { userId } = req.session.auth
     const { content } = req.body;
-    await Question.create({
-        content,
-        userId
-    })
-    res.redirect('/')
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+        await Question.create({
+            content,
+            userId
+        })
+        res.redirect('/')
+    }
+    else {
+      errors = validatorErrors.array().map((error) => error.msg);
+      res.render('question-form', { errors, title: "Question Form", csrfToken: req.csrfToken() })
+    }
+
+
 }))
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
-    console.log(question.id)
+    let title;
+    if (!question) {
+        title = 'Nothing To See Here'
+    }
+    else {
+        title = question.content
+    }
     res.render('question', {
         question,
+        title
     })
 }))
 
@@ -75,8 +103,6 @@ router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => 
     const { userId } = req.session.auth
     const questionId = req.params.id
     const { content } = req.body;
-    // console.log(req.body.questionId)
-    // console.log(req.body.content)
     await Answer.create({
         content,
         userId,

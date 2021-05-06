@@ -6,18 +6,21 @@ html
         link(rel='stylesheet' href='/stylesheets/reset.css')
         link(rel="stylesheet" href="/stylesheets/layout.css")
         script(src="/javascripts/search-button.js" type="module" defer)
-  div
+  body
     nav(class="navbar")
-      div(class="logo-section")
-        img(src="/kettle.png" id="kettle-image")
+      div(class="logo-section" )
+        a(href="/")
+          img(src="/kettle.png" id="kettle-image")
         a(href="/" id="kettle-overflow") Kettle Overflow
       div(class="search")
         form(action="/questions" method="post")
           input(type="text" placeholder="Search..." id="search-bar" name="content")
           button(type="submit" id="submit-search") Submit
-      div(id="logout-button")
+      div
         if locals.authenticated
-          a(href="/users/login" id="logout-link") Log Out
+          form(action="/users/logout" method="post")
+            button(type="submit" id="logout-button") Log Out
+          //- a(href="/users/login" id="logout-link") Log Out
         else
           div(id="login-button")
             a(href="/users/login" id="login-link") Log In
@@ -26,6 +29,6 @@ html
     div
       div(class="footer")
         div(class="made-by")
-          h3 Brewed Up By #[a( href='https://github.com/boothjacobs') Sarah], #[a( href='https://github.com/drewlong314') Drew], & #[a( href='https://github.com/laurengus17') Lauren]
+          h3 Brewed Up By #[a( href='https://github.com/boothjacobs' ) Sarah], #[a( href='https://github.com/drewlong314' ) Drew], & #[a( href='https://github.com/laurengus17' ) Lauren]
 
     block content

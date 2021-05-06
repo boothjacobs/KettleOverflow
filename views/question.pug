@@ -8,27 +8,33 @@ append head
 
 block content
     div(id='page-container')
-        div(id='question-box')
-            p(class='question-content')= question.content
-            div(class='question-footer')
-                if locals.user.id === question.userId
-                    button(class='edit') Edit
-                else
+        if question
+            div(id='question-box')
+                p(class='question-content')= question.content
+                div(class='question-footer')
+                    if locals.user
+                        if locals.user.id === question.userId
+                            button(class='edit') Edit
+                        else
+                            div
+                        p(class="created-by") Question asked by #{question.User.username}
+            if question.Answers.length
+                div(id='question-extra')
+                        each answer in question.Answers
+                            div
+                                p= answer.content
+                                if locals.user
+                                    if locals.user.id === answer.userId
+                                        button(class='edit-answer') Edit
+
+                            //- p(class="created-by") Answered by #{answer.User.username}
+                form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                    input(name="questionId" value=question.id type="hidden")
                     div
-                p(class="created-by") Question asked by #{question.User.username}
-        if question.Answers.length
-            div(id='question-extra')
-                    each answer in question.Answers
-                        div
-                            p= answer.content
-                            if locals.user.id === answer.userId 
-                                button(class='edit-answer') Edit
-
-                        //- p(class="created-by") Answered by #{answer.User.username}
-            form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
-                input(name="questionId" value=question.id type="hidden")
-                div
-                    textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
-                div
-                    button(type="submit" id="submit-answer") Submit Answer 
-
+                        textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                    div
+                        button(type="submit" id="submit-answer") Submit Answer
+        else
+            div(id='redirect')
+                h1 ☕Nothing to see here☕
+                a(href="https://localhost:8080/") Click Here To Go Back To The Home Page
