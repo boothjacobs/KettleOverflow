@@ -52,3 +52,13 @@
     background-color: #556B2F;
     color: #EFE4D4;
 }
+
+#to-hover:hover {
+    background-color: #556B2F;
+    color: #EFE4D4;
+}
+
+#question-body__anchor {
+    text-decoration: none;
+    display: block;
+}
