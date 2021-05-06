@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
 
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
     const questions = await Question.findAll({
-        include: [ User ],
+        include: [User],
         order: [['createdAt', 'DESC']],
         limit: 10,
     });
@@ -23,7 +23,7 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 router.post('/', asyncHandler(async (req, res, next) => {
     const { content } = req.body;
     const questions = await Question.findAll({
-        include: [ User ],
+        include: [User],
         where: {
             content: {
                 [Op.substring]: content,

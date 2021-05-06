@@ -16,12 +16,19 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
         order: [['createdAt', 'DESC']],
         limit: 10,
     });
-
+    const number = Math.ceil(Math.random() * 5).toString()
     res.render('home', {
         title: 'Kettle Overflow',
         csrfToken: req.csrfToken(),
-        questions
+        questions,
+        number
     })
 }));
+
+router.get('/about', asyncHandler(async (req, res) => {
+    res.render('about', {
+        title: 'About'
+    })
+}))
 
 module.exports = router;
