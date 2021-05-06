@@ -1,5 +1,3 @@
-
-
 window.addEventListener("DOMContentLoaded", (event) => {
     const editAnswer = document.querySelector('.edit-answer')
     const answerContent = document.querySelector('.answer-content')
@@ -48,4 +46,3 @@ window.addEventListener("DOMContentLoaded", (event) => {
         })
     })
     }
-})

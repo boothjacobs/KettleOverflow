@@ -1,5 +1,10 @@
-body {
-    background-color: #EFE4D4;
+.error-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    padding-top: 1rem;
 }
 .question-form {
 
@@ -35,3 +40,5 @@ textarea {
     color: #EFE4D4;
     background-color: #A9A454;
 }
+
+

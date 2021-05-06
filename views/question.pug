@@ -10,11 +10,13 @@ append head
 
 block content
     div(id='page-container')
+
         div(id='question-box')
             p(class='question-content')= question.content
             div(class='question-footer')
-                if locals.user.id === question.userId
-                    button(class='edit') Edit
+                if locals.user
+                    if locals.user.id === question.userId
+                        button(class='edit') Edit
                 else
                     div
                 p(class="created-by") Question asked by #{question.User.username}
@@ -24,9 +26,10 @@ block content
                     div(class="remove-div" id='answer-box')
                         p(class='answer-content')= answer.content
                         div(class='answer-footer')
-                        if locals.user.id === answer.userId 
-                            button(class='edit-answer' id=answer.id) Edit
-                            button(class='delete-answer' id=answer.id) Delete 
+                        if locals.user
+                            if locals.user.id === answer.userId 
+                                button(class='edit-answer' id=answer.id) Edit
+                                button(class='delete-answer' id=answer.id) Delete 
 
                         //- p(class="created-by") Answered by #{answer.User.username}
             form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
@@ -36,3 +39,14 @@ block content
                 div
                     button(type="submit" id="submit-answer") Submit Answer 
 
+                            //- p(class="created-by") Answered by #{answer.User.username}
+                form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                    input(name="questionId" value=question.id type="hidden")
+                    div
+                        textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                    div
+                        button(type="submit" id="submit-answer") Submit Answer
+        else
+            div(id='redirect')
+                h1 ☕Nothing to see here☕
+                a(href="https://localhost:8080/") Click Here To Go Back To The Home Page
