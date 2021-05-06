@@ -77,9 +77,16 @@ router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandl
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
+    let title;
+    if (!question) {
+        title = 'Nothing To See Here'
+    }
+    else {
+        title = question.content
+    }
     res.render('question', {
         question,
-        title: question.content
+        title
     })
 }))
 
