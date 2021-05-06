@@ -56,7 +56,7 @@ router.post('/form', requireAuth, csrfProtection, asyncHandler(async (req, res) 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
-        console.log(question.id)
+    console.log(question.id)
     res.render('question', {
         question,
     })
