@@ -3,10 +3,16 @@
 UpVoteButton 🔼
 //- makes an API call to /questions/:id/upVotes--
     //- if a logged in user clicks, call to database to see if there is a vote by that user
+            await QuestionVote.findOne({ where: { userId: {req.session.auth.userId} }})
         if (!vote), posts to create a new QuestionVote with a value of true.
         if (vote), removes vote and updates count
     //- makes a database query to count QuestionVotes where upVote = true, updates UpVote.div.innerHTML with that value
-    //- if an unauthenticated user tries to click, hover is NO
+    const tally = await QuestionVote.count({
+        where: {
+            upVote: true
+        }
+//- });
+    //- if (!res.locals.authenticated) tries to click, hover is NO
 
 DownVoteButon 🔽
 //- makes an API call to /questions/:id/upVotes--
