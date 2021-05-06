@@ -7,9 +7,12 @@ append head
   //- add page specific js
   script(src="/javascripts/home-action.js" type="module" defer)
   script(src="/javascripts/voting-action.js" type="module" defer)
+  script(src="/javascripts/answer-edit.js" type="module" defer)
+  script(src="/javascripts/answer-delete.js" type="module" defer)
 
 block content
     div(id='page-container')
+
         div(id='question-box')
             p(class='question-content')= question.content
             div(class='question-footer')
@@ -21,17 +24,31 @@ block content
                     div
                 p(class="created-by") Question asked by #{question.User.username}
         if question.Answers.length
-            div(id='question-extra')
-                    each answer in question.Answers
-                        div
-                            p= answer.content
-                            if locals.user.id === answer.userId
-                                button(class='edit-answer') Edit
+            each answer in question.Answers
+                div(id='question-extra')
+                    div(class="remove-div" id='answer-box')
+                        p(class='answer-content')= answer.content
+                        div(class='answer-footer')
+                        if locals.user
+                            if locals.user.id === answer.userId 
+                                button(class='edit-answer' id=answer.id) Edit
+                                button(class='delete-answer' id=answer.id) Delete 
 
-                        //- p(class="created-by") Answered by #{answer.User.username}
             form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
                 input(name="questionId" value=question.id type="hidden")
                 div
                     textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
                 div
-                    button(type="submit" id="submit-answer") Submit Answer
+                    button(type="submit" id="submit-answer") Submit Answer 
+
+                            //- p(class="created-by") Answered by #{answer.User.username}
+                form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                    input(name="questionId" value=question.id type="hidden")
+                    div
+                        textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                    div
+                        button(type="submit" id="submit-answer") Submit Answer
+        else
+            div(id='redirect')
+                h1 ☕Nothing to see here☕
+                a(href="https://localhost:8080/") Click Here To Go Back To The Home Page

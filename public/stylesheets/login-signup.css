@@ -1,5 +1,10 @@
-body {
-    background-color: #d6d9dc;
+.error-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    padding-top: 1rem;
 }
 
 .grid-container {

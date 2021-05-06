@@ -12,11 +12,14 @@ block content
       form(action="/users/demo" method="post" id="demo-form")
         div: button(type="submit" class="sidebar-button") Demo User
     div(id="link-2")
-      form(action="/about" method="get" id="about-form")
-          div: button(type="submit" class="sidebar-button") About
-    div(id="link-3")
       form(action=`/questions/${number}` method="get" id="random-form")
           div: button(type="submit" class="sidebar-button") Random Question
+    div(id="link-3")
+      form(action="/questions/form" method="get" id="ask-question-form")
+          div: button(type="submit" class="sidebar-button") Ask A Question
+    div(id="link-4")
+      form(action="/about" method="get" id="about-form")
+          div: button(type="submit" class="sidebar-button") About
   div(class="body-content")
     h1 Home Page
     p Welcome, Have A Cuppa

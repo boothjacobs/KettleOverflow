@@ -1,3 +1,7 @@
+body {
+    background-color: #EFE4D4;
+}
+
 .navbar {
     background-color: #A9A454;
     overflow: hidden;
@@ -40,6 +44,19 @@
     text-decoration: none;
 }
 
+#logout-button {
+    float: right;
+    display: block;
+    background-color: #A9A454;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
 #login-button :hover,
 #signup-button :hover,
 #logout-button :hover {
@@ -69,7 +86,7 @@
     width: 90px;
     height: 30px;
     font-size: 15px;
-    display: inline-block;
+    display: none;
     cursor: pointer;
     text-align: center;
     border-right: 0;

@@ -121,7 +121,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.post("/demo", asyncHandler(async (req, res) => {
-  const user = await User.findByPk(3);
+  const user = await User.findByPk(1);
 
   loginUser(req, res, user);
 
