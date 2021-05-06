@@ -1,3 +1,7 @@
+body {
+    background-color: #EFE4D4;
+}
+
 .navbar {
     background-color: #A9A454;
     overflow: hidden;
@@ -82,7 +86,7 @@
     width: 90px;
     height: 30px;
     font-size: 15px;
-    display: inline-block;
+    display: none;
     cursor: pointer;
     text-align: center;
     border-right: 0;

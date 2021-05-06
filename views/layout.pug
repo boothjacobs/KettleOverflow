@@ -6,10 +6,11 @@ html
         link(rel='stylesheet' href='/stylesheets/reset.css')
         link(rel="stylesheet" href="/stylesheets/layout.css")
         script(src="/javascripts/search-button.js" type="module" defer)
-  div
+  body
     nav(class="navbar")
-      div(class="logo-section")
-        img(src="/kettle.png" id="kettle-image")
+      div(class="logo-section" )
+        a(href="/")
+          img(src="/kettle.png" id="kettle-image")
         a(href="/" id="kettle-overflow") Kettle Overflow
       div(class="search")
         form(action="/questions" method="post")
@@ -28,6 +29,6 @@ html
     div
       div(class="footer")
         div(class="made-by")
-          h3 Brewed Up By Sarah, Drew, & Lauren
+          h3 Brewed Up By #[a( href='https://github.com/boothjacobs' ) Sarah], #[a( href='https://github.com/drewlong314' ) Drew], & #[a( href='https://github.com/laurengus17' ) Lauren]
 
     block content

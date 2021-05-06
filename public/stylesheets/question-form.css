@@ -1,7 +1,3 @@
-body {
-    background-color: #EFE4D4;
-}
-
 .error-list {
     display: flex;
     flex-direction: column;
