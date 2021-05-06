@@ -18,7 +18,6 @@ async function answerUpvotes(answerId) {
     });
     return upVoteTally;
 };
-
 async function answerDownvotes(answerId) {
     const downVoteTally = await AnswerVote.count({
         where: {
@@ -30,7 +29,16 @@ async function answerDownvotes(answerId) {
     });
     return downVoteTally;
 };
-
+async function voteExists(answerId, userId) {
+    await AnswerVote.findOne({
+        where: {
+            [Op.and]: [
+                { answerId },
+                { userId },
+            ]
+        }
+    });
+};
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
@@ -51,6 +59,25 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
     await answer.destroy()
     res.redirect('/')
 
-}))
+}));
+
+router.post('/:id/votes', asyncHandler(async (req, res) => {
+    const answerId = req.params.id;
+    const { userId } = req.session.auth;
+    const { vote } = req.body;
+
+    const alreadyVote = await voteExists(answerId, userId);
+
+    if (alreadyVote) {
+        await alreadyVote.destroy();
+    } else {
+        await AnswerVote.create({
+            upVote: vote,
+            userId,
+            answerId
+        });
+    }
+    res.end();
+}));
 
 module.exports = router;

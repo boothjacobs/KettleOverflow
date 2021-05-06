@@ -33,8 +33,7 @@ async function voteExists(questionId, userId) {
                 { questionId },
                 { userId },
             ]
-        },
-        include: [Question, User]
+        }
     });
     return answer;
 };
@@ -121,16 +120,12 @@ router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => 
 }))
 
 
-router.post('/:id/upvotes', asyncHandler(async (req, res) => {
+router.post('/:id/votes', asyncHandler(async (req, res) => {
     const questionId = req.params.id;
     const { userId } = req.session.auth;
     const { vote } = req.body;
 
-    console.log("reached route")
-
     const alreadyVote = await voteExists(questionId, userId);
-
-    // console.log(questionId, userId, vote, alreadyVote)
 
     if (alreadyVote) {
         await alreadyVote.destroy();

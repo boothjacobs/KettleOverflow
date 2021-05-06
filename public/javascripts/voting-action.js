@@ -13,7 +13,7 @@ if (qUpvoteButton !== null) {
         e.preventDefault();
         const vote = { vote: true };
 
-        const url = window.location.href + "/upvotes";
+        const url = window.location.href + "/votes";
         await fetch(url, {
             method: 'POST',
             headers: {
@@ -27,7 +27,7 @@ if (qUpvoteButton !== null) {
 
 if (qDownvoteButton !== null) {
     qDownvoteButton.addEventListener("click", async (e) => {
-        const url = window.location.href + "/downvotes";
+        const url = window.location.href + "/votes";
         const vote = false;
 
         await fetch(url, {
@@ -37,12 +37,14 @@ if (qDownvoteButton !== null) {
             },
             body: JSON.stringify(vote),
         });
+        let currentVotes = qDownVoteDiv.innerHTML;
+        currentVotes += 1;
     });
 }
 
 if (aUpvoteButton !== null) {
     aUpvoteButton.addEventListener("click", async (e) => {
-        const url = window.location.href + "/upvotes";
+        const url = window.location.href + "/votes";
         const vote = true;
 
         await fetch(url, {
@@ -52,12 +54,13 @@ if (aUpvoteButton !== null) {
             },
             body: JSON.stringify(vote),
         });
+        aUpVoteDiv.innerHTML += 1;
     });
 }
 
 if (aDownvoteButton !== null) {
     aDownvoteButton.addEventListener("click", async (e) => {
-        const url = window.location.href + "/downvotes";
+        const url = window.location.href + "/votes";
         const vote = false;
 
         await fetch(url, {
@@ -67,5 +70,6 @@ if (aDownvoteButton !== null) {
             },
             body: JSON.stringify(vote),
         });
+        aDownVoteDiv.innerHTML += 1;
     });
 }
