@@ -1,0 +1,41 @@
+body {
+    background-color: #EFE4D4;
+}
+
+li {
+    list-style-type: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.info {
+    padding: 1%;
+    height: 10%;
+    width: 40%;
+    background-color: white;
+    border: solid 1px #A9A454;
+    margin: 1%;
+    text-align: center;
+}
+
+.developer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding: 1%;
+    height: 10%;
+    width: 40%;
+    background-color: white;
+    border: solid 1px #A9A454;
+    margin: 1%;
+    text-align: center;
+}

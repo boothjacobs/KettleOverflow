@@ -10,17 +10,24 @@ const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
 // });
 
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
-  const questions = await Question.findAll({
-      include: [ User ],
-      order: [['createdAt', 'DESC']],
-      limit: 10,
-  });
-  res.render('home', {
-      title: 'Kettle Overflow',
-      csrfToken: req.csrfToken(),
-      questions
-  })
+    const questions = await Question.findAll({
+        include: [ User ],
+        order: [['createdAt', 'DESC']],
+        limit: 10,
+    });
+    const number = Math.ceil(Math.random() * 5).toString()
+    res.render('home', {
+        title: 'Kettle Overflow',
+        csrfToken: req.csrfToken(),
+        questions,
+        number
+    })
 }));
 
+router.get('/about', asyncHandler(async (req, res) => {
+    res.render('about', {
+        title: 'About'
+    })
+}))
 
 module.exports = router;
