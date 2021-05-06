@@ -7,16 +7,6 @@ const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
-
-router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
-const answer = await Answer.findByPk(req.params.id,
-        { include: [Question, User] })  
-
-    res.render('question', {
-        answer,
-    })
-}))
-
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
     console.log(req.params.id)
