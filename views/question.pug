@@ -2,17 +2,23 @@ extends layout
 
 append head
   //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/question.css")
   //- add page specific js
   script(src="/javascripts/home-action.js" type="module" defer)
 
 block content
-    div(class='question')
-        h1(class='question-content')= question.content
-    div(class='question-extra')
-        p Question asked by #{question.User.username}
-        if locals.user.id === question.userId
-            button(class='edit') Edit
-    each answer in question.Answers
-        div
-            p= answer.content
+    div(id='page-container')
+        div(id='question-box')
+            p(class='question-content')= question.content
+            div(class='question-footer')
+                if locals.user.id === question.userId
+                    button(class='edit') Edit
+                else
+                    div
+                p(class="created-by") Question asked by #{question.User.username}
+        if question.Answers.length
+            div(id='question-extra')
+                each answer in question.Answers
+                    div
+                        p= answer.content
+                        //- p(class="created-by") Answered by #{answer.User.username}
