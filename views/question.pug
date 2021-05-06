@@ -18,7 +18,20 @@ block content
                 p(class="created-by") Question asked by #{question.User.username}
         if question.Answers.length
             div(id='question-extra')
-                each answer in question.Answers
-                    div
-                        p= answer.content
+                    each answer in question.Answers
+                        div
+                            p= answer.content
+                            //- if locals.user.id === answer.id 
+                            //-     button(class='edit') Edit
+                            //- else
+                            //-     div
+                            //- p(class="created-by") Question asked by #{answer.User.username}
+
                         //- p(class="created-by") Answered by #{answer.User.username}
+            form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                input(name="questionId" value=question.id type="hidden")
+                div
+                    textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                div
+                    button(type="submit" id="submit-answer") Submit Answer 
+
