@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
-
+const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
-//   // console.log("We are on the home page ------------", res.locals.authenticated)
+
 //   res.render('home', { title: 'Kettle Overflow' });
 // });
 

@@ -3,9 +3,41 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { requireAuth } = require('../auth') //Need login/ logout
 const { check, validationResult } = require('express-validator');
-const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
+const { Question, User, Answer, QuestionVote, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
+
+async function questionUpvotes(questionId) {
+    const upVoteTally = await QuestionVote.count({
+        where: {
+            [Op.and]: [ { questionId }, { upVote: true } ]
+        }
+    });
+    return upVoteTally;
+};
+async function questionDownvotes(questionId) {
+    const downVoteTally = await QuestionVote.count({
+        where: {
+            [Op.and]: [
+                { questionId },
+                { upVote: false },
+            ]
+        }
+    });
+    return downVoteTally;
+};
+async function voteExists(questionId, userId) {
+    const answer = await QuestionVote.findOne({
+        where: {
+            [Op.and]: [
+                { questionId },
+                { userId },
+            ]
+        }
+    });
+    return answer;
+};
+
 
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
     const questions = await Question.findAll({
@@ -77,6 +109,11 @@ router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandl
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
+    
+    const upvotes = await questionUpvotes(req.params.id);
+    const downvotes = await questionDownvotes(req.params.id);
+    res.render('question', {
+        question, 
 
     let title;
     if (!question) {
@@ -88,18 +125,20 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
     res.render('question', {
         question,
-        title
+        title,
+        upvotes, 
+        downvotes
     })
 }))
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
-    const questionId = req.params.id
+    const questionId = req.params.id;
 
-    const question = await Question.findByPk(questionId)
-    question.content = req.body.content
-    await question.save()
-    res.sendStatus(201)
-}))
+    const question = await Question.findByPk(questionId);
+    question.content = req.body.content;
+    await question.save();
+    res.sendStatus(201);
+}));
 
 router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => {
     const { userId } = req.session.auth
@@ -114,20 +153,25 @@ router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => 
     res.redirect(`/questions/${questionId}`)
 }))
 
+router.post('/:id/votes', asyncHandler(async (req, res) => {
+    const questionId = req.params.id;
+    const { userId } = req.session.auth;
+    const { vote } = req.body;
 
-// router.put('/:id(\\d+)/answers/:id(\\d+)', asyncHandler(async (req, res) => {
-//     const questionId = req.params.id
-//     console.log(req.params.id)
-//     const answer = await Answer.findAll({
-//         include: [Question, User],
-//         where: {
-//             questionId: questionId
-//         }
-//     })
-//     answer.content = req.body.content
-//     await answer.save()
-//     res.sendStatus(201)
-// }))
+    const alreadyVote = await voteExists(questionId, userId);
+
+    if (alreadyVote) {
+        await alreadyVote.destroy();
+    } else {
+        await QuestionVote.create({
+            upVote: vote,
+            userId,
+            questionId
+        });
+    }
+    res.end();
+}));
+
 
 
 module.exports = router;
