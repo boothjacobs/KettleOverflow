@@ -9,23 +9,26 @@ append head
 block content
   div(class="sidebar")
     div(id="link-1")
-      h3 Placeholder
+      form(action="/users/demo" method="post" id="demo-form")
+        div: button(type="submit" class="sidebar-button") Demo User
     div(id="link-2")
-      h3 Placeholder
+      form(action="/about" method="get" id="about-form")
+          div: button(type="submit" class="sidebar-button") About
     div(id="link-3")
-      h3 Placeholder
+      form(action=`/questions/${number}` method="get" id="random-form")
+          div: button(type="submit" class="sidebar-button") Random Question
   div(class="body-content")
     h1 Home Page
     p Welcome, Have A Cuppa
-  table(class="questions-table")
-    thead(class="head-questions-table")
-      tr
-        th(id="User-Table") User
-        th(id="Question-Table") Question
-    tbody(class="questions-table-body")
-      each question in questions
-        tr(id="to-hover")
-          td(id="usernames")
-            a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.User.username
-          td(id="question-body")
-            a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.content
+    table(class="questions-table")
+      thead(class="head-questions-table")
+        tr
+          th(id="User-Table") User
+          th(id="Question-Table") Question
+      tbody(class="questions-table-body")
+        each question in questions
+          tr(id="to-hover")
+            td(id="usernames")
+              a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.User.username
+            td(id="question-body")
+              a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.content

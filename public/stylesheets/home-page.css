@@ -8,6 +8,14 @@
     overflow: auto;
 }
 
+.sidebar-button {
+    border: none;
+    background-color: #cc8c52;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 #link-1,
 #link-2,
 #link-3 {
@@ -19,16 +27,20 @@
 .body-content {
     margin-left: 250px;
     padding: 10px 15px;
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.questions-table {
+/* .questions-table {
     margin-left: 300px;
     margin-right: 50px;
     padding: 20px;
     width: 700px;
     text-align: center;
-}
+} */
 
 .head-questions-table {
     text-align: center;
