@@ -22,11 +22,8 @@ block content
                     each answer in question.Answers
                         div
                             p= answer.content
-                            //- if locals.user.id === answer.id 
-                            //-     button(class='edit') Edit
-                            //- else
-                            //-     div
-                            //- p(class="created-by") Question asked by #{answer.User.username}
+                            if locals.user.id === answer.userId 
+                                button(class='edit-answer') Edit
 
                         //- p(class="created-by") Answered by #{answer.User.username}
             form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
