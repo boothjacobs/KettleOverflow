@@ -40,6 +40,19 @@
     text-decoration: none;
 }
 
+#logout-button {
+    float: right;
+    display: block;
+    background-color: #A9A454;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
 #login-button :hover,
 #signup-button :hover,
 #logout-button :hover {
