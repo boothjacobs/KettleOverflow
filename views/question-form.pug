@@ -1,10 +1,13 @@
 extends layout
 
-//- where to put title?
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/question-form.css")
+
 block content
-     form(action="/questions", method="post")
+     form(class='question-form' action="/questions", method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
         div
-            textarea(name="content", cols="30", rows="10" placeholder="Write your question here!")
+            textarea(name="content", cols="30", rows="10" placeholder="Write you question here!")
         div
-            button(type="submit") Submit Question
+            button(type="submit" id="submit-question") Submit Question
