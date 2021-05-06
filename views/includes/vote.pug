@@ -1,5 +1,9 @@
-mixin qUpvote
+append head
+    script(src="/javascripts/voting-action.js" type="module" defer)
 
+mixin qUpvote
+    div(class='question-upVoteTally')
+    div(id="question-up-vote") 🔼
 
 mixin qDownvote
 
