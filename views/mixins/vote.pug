@@ -1,0 +1,16 @@
+
+mixin qUpvote(questionId)
+    div(class='question-upVoteTally') #{upvotes} Upvotes
+    div(id="question-up-vote") 🔼
+
+mixin qDownvote(questionId)
+    div(class='question-downVoteTally') #{downvotes} Downvotes
+    div(id="question-down-vote") 🔽
+
+mixin aUpvote(answerId)
+    div(class='answer-upVoteTally') #{upvotes} Upvotes
+    div(id="answer-up-vote") 🔼
+
+mixin aDownvote(answerId)
+    div(class='answer-downVoteTally') #{downvotes} Downvotes
+    div(id="answer-down-vote") 🔽

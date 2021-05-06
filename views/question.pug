@@ -1,17 +1,20 @@
 extends layout
-include includes/vote.pug
+include mixins/vote.pug
 
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/question.css")
   //- add page specific js
   script(src="/javascripts/home-action.js" type="module" defer)
+  script(src="/javascripts/voting-action.js" type="module" defer)
 
 block content
     div(id='page-container')
         div(id='question-box')
             p(class='question-content')= question.content
             div(class='question-footer')
+                +qUpvote(question.id)
+                +qDownvote(question.id)
                 if locals.user.id === question.userId
                     button(class='edit') Edit
                 else
@@ -22,7 +25,7 @@ block content
                     each answer in question.Answers
                         div
                             p= answer.content
-                            if locals.user.id === answer.userId 
+                            if locals.user.id === answer.userId
                                 button(class='edit-answer') Edit
 
                         //- p(class="created-by") Answered by #{answer.User.username}
@@ -31,5 +34,4 @@ block content
                 div
                     textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
                 div
-                    button(type="submit" id="submit-answer") Submit Answer 
-
+                    button(type="submit" id="submit-answer") Submit Answer

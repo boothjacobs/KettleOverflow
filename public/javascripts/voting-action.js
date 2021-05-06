@@ -1,161 +1,71 @@
-const { User, Question, QuestionVote, AnswerVote } = require('../db/models');
-const { csrfProtection, asyncHandler } = require('./utils');
-const { Op } = require("sequelize");
-
 const qUpvoteButton = document.getElementById("question-up-vote");
 const qDownvoteButton = document.getElementById("question-down-vote");
 const aUpvoteButton = document.getElementById("answer-up-vote");
 const aDownvoteButton = document.getElementById("answer-down-vote");
 
 const qUpVoteDiv = document.getElementById("question-upVoteTally");
+const qDownVoteDiv = document.getElementById("question-downVoteTally");
+const aUpVoteDiv = document.getElementById("answer-upVoteTally");
+const aDownVoteDiv = document.getElementById("answer-downVoteTally");
 
-if (!res.locals.authenticated) {
-    qUpvoteButton.disabled = true;
-    qDownvoteButton.disabled = true;
-    aUpvoteButton.disabled = true;
-    aDownvoteButton.disabled = true;
-};
+if (qUpvoteButton !== null) {
+    qUpvoteButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const vote = { vote: true };
 
-async function questionUpvotes(questionId) {
-    const upVoteTally = await QuestionVote.count({
-        where: {
-            upVote: true
-        }
-    });
-    return upVoteTally;
-};
-
-async function questionDownvotes(questionId) {
-    const downVoteTally = await QuestionVote.count({
-        where: {
-            upVote: false
-        }
-    });
-    return downVoteTally;
-};
-
-async function answerUpvotes(answerId) {
-    const upVoteTally = await AnswerVote.count({
-        where: {
-            upVote: true
-        }
-    });
-    return upVoteTally;
-};
-
-async function answerDownvotes(answerId) {
-    const downVoteTally = await AnswerVote.count({
-        where: {
-            upVote: false
-        }
-    });
-    return downVoteTally;
-};
-
-qUpvoteButton.addEventListener("click", async (e) => {
-    const questionId = req.params.id;
-
-    const voteExists = await QuestionVote.findOne({
-        where: { userId },
-        include: [Question, User]
-    });
-
-    if (voteExists) {
-
-        const res = await fetch("/questions/:id/upVotes", {
-            method: "DELETE",
+        const url = window.location.href + "/upvotes";
+        await fetch(url, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-              },
-          body: JSON.stringify(voteExists),
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(vote),
         });
-        await res.json();
+        qUpVoteDiv.innerHTML += 1;
+    });
+}
 
-    } else {
+if (qDownvoteButton !== null) {
+    qDownvoteButton.addEventListener("click", async (e) => {
+        const url = window.location.href + "/downvotes";
+        const vote = false;
 
+        await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(vote),
+        });
+    });
+}
+
+if (aUpvoteButton !== null) {
+    aUpvoteButton.addEventListener("click", async (e) => {
+        const url = window.location.href + "/upvotes";
         const vote = true;
-        try {
-            const res = await fetch("/questions/:id/upVotes", {
+
+        await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                },
+            },
             body: JSON.stringify(vote),
-            });
-
-            if (!res.ok) {
-            throw res;
-            }
-        } catch (err) {
-            alert(err.message)
-        };
-
-    };
-
-    let voteTally = questionUpvotes(questionId);
-    qUpVoteDiv.innerHTML = voteTally;
-});
-
-qDownvoteButton.addEventListener("click", async (e) => {
-    const questionId = req.params.id;
-
-
-    const vote = false;
-    try {
-        const res = await fetch("/questions/:id/upVotes", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-            },
-        body: JSON.stringify(vote),
         });
+    });
+}
 
-        if (!res.ok) {
-          throw res;
-        }
-    } catch (err) {
-        alert(err.message)
-    }
-});
+if (aDownvoteButton !== null) {
+    aDownvoteButton.addEventListener("click", async (e) => {
+        const url = window.location.href + "/downvotes";
+        const vote = false;
 
-aUpvoteButton.addEventListener("click", async (e) => {
-    const answerId = req.params.id; //??????????
-
-    const vote = true;
-    try {
-        const res = await fetch("/answers/:id/upVotes", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
+        await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
             },
-        body: JSON.stringify(vote),
+            body: JSON.stringify(vote),
         });
-
-        if (!res.ok) {
-          throw res;
-        }
-    } catch (err) {
-        alert(err.message)
-    }
-});
-
-aDownvoteButton.addEventListener("click", async (e) => {
-    const answerId = req.params.id; //??????????
-
-    const vote = false;
-    try {
-        const res = await fetch("/answers/:id/upVotes", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-            },
-        body: JSON.stringify(vote),
-        });
-
-        if (!res.ok) {
-          throw res;
-        }
-    } catch (err) {
-        alert(err.message)
-    }
-});
+    });
+}

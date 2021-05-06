@@ -6,22 +6,43 @@ const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
 
-
-const { userId } = req.session.auth;
-
-router.post("/questions/:id/upVotes", asyncHandler(async (req, res) => {
-    const questionId = req.params.id;
-    const { vote } = req.body;
-
-    await QuestionVote.create({
-        upVote: vote,
-        userId,
-        questionId
+async function voteExists(questionId, userId) {
+    await QuestionVote.findOne({
+        where: {
+            [Op.and]: [
+                { questionId },
+                { userId },
+            ]
+        },
+        include: [Question, User]
     });
+};
 
-}));
+// router.post("/questions/:id/upvotes", asyncHandler(async (req, res) => {
+//     const questionId = req.params.id;
+//     const { userId } = req.session.auth;
+//     const { vote } = req.body;
 
-router.post("/answers/:id/upVotes", asyncHandler(async (req, res) => {
+//     console.log("reached route")
+
+//     const alreadyVote = voteExists(questionId, userId);
+
+//     if (alreadyVote) {
+//         await alreadyVote.destroy();
+//     } else {
+//         await QuestionVote.create({
+//             upVote: vote,
+//             userId,
+//             questionId
+//         });
+//     }
+
+//     let voteTally = questionUpvotes(questionId);
+//     qUpVoteDiv.innerHTML = voteTally;
+
+// }));
+
+router.post("/answers/:id/upvotes", asyncHandler(async (req, res) => {
     const answerId = req.params.id;
     const { vote } = req.body;
 
@@ -37,12 +58,10 @@ router.post("/answers/:id/upVotes", asyncHandler(async (req, res) => {
     });
 }));
 
-router.delete("/questions/:id/upVotes", asyncHandler(async (req, res) => {
-    const questionId = req.params.id;
-    const { voteExists } = req.body;
-    await voteExists.destroy();
-}));
+// router.delete("/questions/:id/upVotes", asyncHandler(async (req, res) => {
 
-router.delete("/answers/:id/upVotes", asyncHandler(async (req, res) => {
+// }));
 
-}));
+// router.delete("/answers/:id/upVotes", asyncHandler(async (req, res) => {
+
+// }));

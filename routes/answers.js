@@ -3,9 +3,34 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { requireAuth } = require('../auth') //Need login/ logout
 const { check, validationResult } = require('express-validator');
-const { Question, User, Answer, sequelize, Sequelize } = require('../db/models')
+const { Question, User, Answer, AnswerVote, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
+
+async function answerUpvotes(answerId) {
+    const upVoteTally = await AnswerVote.count({
+        where: {
+            [Op.and]: [
+                { answerId },
+                { upVote: true },
+            ]
+        }
+    });
+    return upVoteTally;
+};
+
+async function answerDownvotes(answerId) {
+    const downVoteTally = await AnswerVote.count({
+        where: {
+            [Op.and]: [
+                { answerId },
+                { upVote: false },
+            ]
+        }
+    });
+    return downVoteTally;
+};
+
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
