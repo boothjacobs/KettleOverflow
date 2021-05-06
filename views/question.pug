@@ -5,6 +5,8 @@ append head
   link(rel="stylesheet" href="/stylesheets/question.css")
   //- add page specific js
   script(src="/javascripts/home-action.js" type="module" defer)
+  script(src="/javascripts/answer-edit.js" type="module" defer)
+  script(src="/javascripts/answer-delete.js" type="module" defer)
 
 block content
     div(id='page-container')
@@ -17,12 +19,14 @@ block content
                     div
                 p(class="created-by") Question asked by #{question.User.username}
         if question.Answers.length
-            div(id='question-extra')
-                    each answer in question.Answers
-                        div
-                            p= answer.content
-                            if locals.user.id === answer.userId 
-                                button(class='edit-answer') Edit
+            each answer in question.Answers
+                div(id='question-extra')
+                    div(class="remove-div" id='answer-box')
+                        p(class='answer-content')= answer.content
+                        div(class='answer-footer')
+                        if locals.user.id === answer.userId 
+                            button(class='edit-answer' id=answer.id) Edit
+                            button(class='delete-answer' id=answer.id) Delete 
 
                         //- p(class="created-by") Answered by #{answer.User.username}
             form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
