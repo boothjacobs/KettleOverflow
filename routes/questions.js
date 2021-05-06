@@ -55,10 +55,12 @@ router.post('/form', requireAuth, csrfProtection, asyncHandler(async (req, res) 
 
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
-        { include: [Answer, User] });
-
-    res.render('question', { question });
-}));
+        { include: [Answer, User] })
+        console.log(question.id)
+    res.render('question', {
+        question,
+    })
+}))
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const questionId = req.params.id;
@@ -68,5 +70,20 @@ router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     await question.save();
     res.sendStatus(201);
 }));
+
+router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => {
+    const { userId } = req.session.auth
+    const questionId = req.params.id
+    const { content } = req.body;
+    // console.log(req.body.questionId)
+    // console.log(req.body.content)
+    await Answer.create({
+        content,
+        userId,
+        questionId
+    })
+
+    res.redirect(`/questions/${questionId}`)
+}))
 
 module.exports = router;
