@@ -16,7 +16,8 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
 
     res.render('home', {
         csrfToken: req.csrfToken(),
-        questions
+        questions,
+        title: 'Questions page'
     })
 }));
 
@@ -58,6 +59,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         { include: [Answer, User] })
     res.render('question', {
         question,
+        title: question.content
     })
 }))
 
