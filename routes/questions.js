@@ -77,6 +77,7 @@ router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandl
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
+
     let title;
     if (!question) {
         title = 'Nothing To See Here'
@@ -84,6 +85,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     else {
         title = question.content
     }
+
     res.render('question', {
         question,
         title
@@ -111,5 +113,21 @@ router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => 
 
     res.redirect(`/questions/${questionId}`)
 }))
+
+
+// router.put('/:id(\\d+)/answers/:id(\\d+)', asyncHandler(async (req, res) => {
+//     const questionId = req.params.id
+//     console.log(req.params.id)
+//     const answer = await Answer.findAll({
+//         include: [Question, User],
+//         where: {
+//             questionId: questionId
+//         }
+//     })
+//     answer.content = req.body.content
+//     await answer.save()
+//     res.sendStatus(201)
+// }))
+
 
 module.exports = router;
