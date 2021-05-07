@@ -54,11 +54,12 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
         order: [['createdAt', 'DESC']],
         limit: 10,
     });
-
+    const number = Math.ceil(Math.random() * 5).toString()
     res.render('home', {
         csrfToken: req.csrfToken(),
         questions,
-        title: 'Questions page'
+        title: 'Questions page',
+        number
     })
 }));
 
@@ -136,7 +137,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         }
     }
     let answerKeys = Object.keys(answerVotes);
-    
+
     let title;
     if (!question) {
         title = 'Nothing To See Here'
