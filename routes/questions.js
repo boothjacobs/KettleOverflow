@@ -135,8 +135,10 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
             answerVotes[`${ids[i]}`] = downvotesA;
         }
     }
-    let answerKeys = Object.keys(answerVotes);
-    
+    let ans = answers[0]
+    console.log("******************", answerVotes[ids[0]].length)
+    // let answerKeys = Object.keys(answerVotes);
+
     let title;
     if (!question) {
         title = 'Nothing To See Here'
@@ -149,7 +151,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         upvotes,
         downvotes,
         answerVotes,
-        answerKeys
+        // answerKeys
     });
 }));
 

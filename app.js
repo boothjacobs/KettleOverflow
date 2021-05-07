@@ -10,12 +10,15 @@ const homeRouter = require('./routes/home');
 const usersRouter = require('./routes/users');
 const questionsRouter = require('./routes/questions');
 const answersRouter = require('./routes/answers');
-// const voteRouter = require('./routes/voting');
 const { sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 
+
+
 const app = express();
 
+
+// view engine setup
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
@@ -46,7 +49,6 @@ store.sync();
 app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/questions', questionsRouter);
-// app.use(voteRouter);
 app.use('/answers', answersRouter);
 
 // catch 404 and forward to error handler
