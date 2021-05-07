@@ -19,13 +19,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
             const contentSplit = answerContent.innerHTML.split("<")
             const textArea = document.createElement('textarea')
-            
+
             textArea.innerHTML = contentSplit[0]
             textArea.style.resize = 'none'
             textArea.style.height = '10%'
             textArea.style.fontSize = '1rem'
             form.appendChild(textArea)
-            
+
             const submitEditButton = document.createElement('button')
             submitEditButton.style.height = '7%'
             submitEditButton.style.width = '30%'
@@ -41,7 +41,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             event.preventDefault()
             const content = { content: textArea.value }
 
-                await fetch(`http://localhost:8080/answers/${answerId}`, {
+                await fetch(`/answers/${answerId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',

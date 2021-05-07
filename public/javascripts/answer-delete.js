@@ -6,7 +6,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
     deleteButton.addEventListener("click", async (event) => {
         event.preventDefault()
         const answerId = event.target.id
-        await fetch(`http://localhost:8080/answers/${answerId}`, {
+        await fetch(`/answers/${answerId}`, {
                     method: 'DELETE'
                 })
 
