@@ -7,31 +7,32 @@ append head
   script(src="/javascripts/home-action.js" type="module" defer)
 
 block content
-  div(class="sidebar")
-    div(id="link-1")
-      form(action="/users/demo" method="post" id="demo-form")
-        div: button(type="submit" class="sidebar-button") Demo User
-    div(id="link-2")
-      form(action=`/questions/${number}` method="get" id="random-form")
-          div: button(type="submit" class="sidebar-button") Random Question
-    div(id="link-3")
-      form(action="/questions/form" method="get" id="ask-question-form")
-          div: button(type="submit" class="sidebar-button") Ask A Question
-    div(id="link-4")
-      form(action="/about" method="get" id="about-form")
-          div: button(type="submit" class="sidebar-button") About
-  div(class="body-content")
-    h1 Home Page
-    p Welcome, Have A Cuppa
-    table(class="questions-table")
-      thead(class="head-questions-table")
-        tr
-          th(id="User-Table") User
-          th(id="Question-Table") Question
-      tbody(class="questions-table-body")
-        each question in questions
-          tr(id="to-hover")
-            td(id="usernames")
-              a(id="question-body__anchor" href=`/questions/${question.id}`)= question.User.username
-            td(id="question-body")
-              a(id="question-body__anchor" href=`/questions/${question.id}`)= question.content
+  body(class="home-body") 
+    div(class="sidebar")  
+      div(id="link-1")
+        form(action="/users/demo" method="post" id="demo-form")
+          div: button(type="submit" class="sidebar-button") Demo User
+      div(id="link-2")
+        form(action=`/questions/${number}` method="get" id="random-form")
+            div: button(type="submit" class="sidebar-button") Random Question
+      div(id="link-3")
+        form(action="/questions/form" method="get" id="ask-question-form")
+            div: button(type="submit" class="sidebar-button") Ask A Question
+      div(id="link-4")
+        form(action="/about" method="get" id="about-form")
+            div: button(type="submit" class="sidebar-button") About
+    div(class="body-content")
+      h1 Welcome
+      p Cheers, Have A Cuppa
+      table(class="questions-table")
+        thead(class="head-questions-table")
+          tr
+            th(id="User-Table") User
+            th(id="Question-Table") Question
+        tbody(class="questions-table-body")
+          each question in questions
+            tr(id="to-hover")
+              td(id="usernames")
+                a(id="question-body__anchor" href=`/questions/${question.id}`)= question.User.username
+              td(id="question-body")
+                a(id="question-body__anchor" href=`/questions/${question.id}`)= question.content

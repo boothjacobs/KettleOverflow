@@ -1,5 +1,8 @@
-body {
+.question-body {
     background-color: #EFE4D4;
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
 }
 
 #page-container {
