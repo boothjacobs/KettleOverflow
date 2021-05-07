@@ -9,12 +9,16 @@
 
 [Kettle Overflow](https://kettle-overflow.herokuapp.com/) is a web application inspired by Stack Overflow built using JavaScript using Express for the back end and Pug for the front end. Kettle Overflow allows users to:
 -   Create an account
+![Screen Shot 2021-05-07 at 1 57 12 PM](https://user-images.githubusercontent.com/78223925/117514226-feb21a80-af58-11eb-8fb9-a67ea7673c06.png)
 -   Log in / Log out
+![Screen Shot 2021-05-07 at 1 57 01 PM](https://user-images.githubusercontent.com/78223925/117514158-d5918a00-af58-11eb-9b74-0cc3635d8a9f.png)
 -   Ask questions about Tea
+![Screen Shot 2021-05-07 at 1 57 33 PM](https://user-images.githubusercontent.com/78223925/117514335-2ef9b900-af59-11eb-954a-98508b87a4a6.png)
 -   Answer questions about Tea
 -   Edit either questions or answers that belong to the user
 -   Delete answers that belong to the user
 -   Search for a question using the search bar
+![Screen Shot 2021-05-07 at 1 56 25 PM](https://user-images.githubusercontent.com/78223925/117514392-53559580-af59-11eb-8c74-66e0ff89a566.png)
 
 ## Technologies Used
 
