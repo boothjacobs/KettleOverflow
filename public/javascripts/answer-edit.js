@@ -1,16 +1,18 @@
 window.addEventListener("DOMContentLoaded", (event) => {
-    const editAnswer = document.querySelector('.edit-answer')
-    const answerContent = document.querySelector('.answer-content')
+    const editAnswer = document.querySelectorAll('.edit-answer')
+    const answerContentPug = document.querySelector('.answer-content')
     const answerFooter = document.querySelector('.answer-footer')
     const answerBox = document.getElementById("answer-box")
 
     if (editAnswer !== null) {
-        editAnswer.addEventListener('click', async (event) => {
+        editAnswer.forEach((button) => {
+        button.addEventListener('click', async (event) => {
             answerBox.removeChild(answerFooter)
 
-            console.log("EDIT IS HAPPENING")
-            console.log(event.target)
-
+            // console.log("EDIT IS HAPPENING")
+            // console.log(event.path[1].children[0].innerHTML)
+            // console.log(event.path[1].children)
+            const answerContent = event.path[1].children[0]
             const answerId = event.target.id
             const answerBoxNew = document.getElementById(answerId)
             const form = document.createElement('form')
@@ -18,9 +20,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
             form.style.flexDirection = 'column'
             answerBoxNew.appendChild(form)
 
+            const contentSplit = answerContent.innerHTML.split("<")
+            // console.log(contentSplit[0])
             // how do i reassign the text inner HTML to specific answer
             const textArea = document.createElement('textarea')
-            textArea.innerHTML = answerContent.innerHTML
+            
+            textArea.innerHTML = contentSplit[0]
             textArea.style.resize = 'none'
             textArea.style.height = '10%'
             textArea.style.fontSize = '1rem'
@@ -34,7 +39,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
             submitEditButton.setAttribute('type', 'submit')
             submitEditButton.innerHTML = 'Submit Edit'
             form.appendChild(submitEditButton)
-            answerBox.removeChild(answerContent)
+            answerBox.removeChild(answerContentPug)
 
             submitEditButton.addEventListener('click', async (event) => {
             event.preventDefault()
@@ -50,6 +55,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
                 window.location.reload()
         })
+    })
     })
     }
 })
