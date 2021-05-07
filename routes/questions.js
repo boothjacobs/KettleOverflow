@@ -125,31 +125,32 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answers = await Answer.findAll({
         where: { questionId: req.params.id }
     });
-    let upvotesA;
-    let downvotesA;
+    let answerVotes = {};
     if (answers) {
         const ids = answers.map((ele) => ele.dataValues.id);
         for (let i = 0; i < ids.length; i++) {
-            upvotesA = await answerUpvotes(ids[i]);
-            downvotesA = await answerDownvotes(ids[i]);
+            let upvotesA = await answerUpvotes(ids[i]);
+            let downvotesA = await answerDownvotes(ids[i]);
+            answerVotes[`${ids[i]}`] = upvotesA;
+            answerVotes[`${ids[i]}`] = downvotesA;
         }
     }
-   
+    let answerKeys = Object.keys(answerVotes);
+    // console.log(answerKeys)
     let title;
     if (!question) {
         title = 'Nothing To See Here'
     } else {
         title = question.content
     }
-
     res.render('question', {
         question,
         title,
         upvotes,
         downvotes,
-        upvotesA,
-        downvotesA
-    })
+        answerVotes,
+        answerKeys
+    });
 }));
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
@@ -191,7 +192,26 @@ router.post('/:id/votes', asyncHandler(async (req, res) => {
             questionId
         });
     }
-    res.end();
+
+    const upvotes = await questionUpvotes(req.params.id);
+    const downvotes = await questionDownvotes(req.params.id);
+
+    const answers = await Answer.findAll({
+        where: { questionId: req.params.id }
+    });
+    let upvotesA;
+    let downvotesA;
+    if (answers) {
+        const ids = answers.map((ele) => ele.dataValues.id);
+        for (let i = 0; i < ids.length; i++) {
+            upvotesA = await answerUpvotes(ids[i]);
+            downvotesA = await answerDownvotes(ids[i]);
+        }
+    }
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send({upvotes: upvotes, downvotes: downvotes, ansUpvotes: upvotesA, ansDownvotes: downvotesA});
+
 }));
 
 
