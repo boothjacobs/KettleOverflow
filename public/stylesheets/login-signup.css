@@ -1,3 +1,10 @@
+body {
+    background-color: #EFE4D4;
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
+}
+
 .error-list {
     display: flex;
     flex-direction: column;
@@ -68,4 +75,21 @@
 
 .switch-link {
     grid-row: 3;
+}
+
+#main-login-button,
+.demo-user-button,
+#main-signup-button {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+}
+
+#main-login-button:hover,
+.demo-user-button:hover,
+#main-signup-button:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
 }

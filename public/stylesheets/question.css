@@ -64,10 +64,19 @@
 }
 
 .edit-submit {
-    height: 10%;
-    width: 12%;
+    height: 7%;
+    width: 30%;
     margin-top: 2px;
     align-self: flex-start;
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.edit-submit:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
 }
 
 #redirect {
@@ -115,7 +124,6 @@
     cursor: pointer;
     height: 25px;
     font-size: 15px;
-
 }
 
 .edit-answer:hover {
@@ -156,7 +164,6 @@
     cursor: pointer;
     height: 25px;
     font-size: 15px;
-    margin: 5px;
 }
 
 #submit-edit-button:hover {

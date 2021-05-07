@@ -42,3 +42,20 @@ li {
     margin: 1%;
     text-align: center;
 }
+
+#sarah,
+#drew, #lauren {
+    margin: 10px;
+}
+
+#sarah-name,
+#drew-name,
+#lauren-name {
+    color: #556b2f;
+}
+
+#sarah-list,
+#drew-list,
+#lauren-list {
+    color: black;
+}
