@@ -82,6 +82,10 @@
 
 }
 
+#answer-box {
+    margin: 5px;
+}
+
 .answer-form {
     padding: 20px;
 }
@@ -139,7 +143,6 @@
     cursor: pointer;
     height: 25px;
     font-size: 15px;
-    margin: 2px;
 }
 
 .edit:hover {
