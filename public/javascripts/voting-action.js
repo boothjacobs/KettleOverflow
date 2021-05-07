@@ -21,7 +21,8 @@ if (qUpvoteButton !== null) {
             },
             body: JSON.stringify(vote),
         });
-        qUpVoteDiv.innerHTML += 1;
+        qUpVoteDiv.innerHTML
+         += 1;
     });
 }
 
