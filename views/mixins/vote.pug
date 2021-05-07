@@ -7,10 +7,10 @@ mixin qDownvote(questionId)
     div(class="qDownVoteTally") #{downvotes}
     div(id=question.id class="question-down-vote") 🔽
 
-//- mixin aUpvote(answerId)
-//-     div(class="aUpVoteTally") #{ansUpvotes}
-//-     div(id=question.Answer.id class="answer-up-vote") 🔼
+mixin aUpvote(answerId)
+    div(class="aUpVoteTally") #{ansUpvotes}
+    div(id=question.Answers.id class="answer-up-vote") 🔼
 
-//- mixin aDownvote(answerId)
-//-     div(class="aDownVoteTally") #{ansDownvotes}
-//-     div(id=quesion.Answer.id class="answer-down-vote") 🔽
+mixin aDownvote(answerId)
+    div(class="aDownVoteTally") #{ansDownvotes}
+    div(id=question.Answers.id class="answer-down-vote") 🔽

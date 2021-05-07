@@ -129,7 +129,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     let ansDownvotes;
     if (answers) {
         const ids = answers.map((ele) => ele.dataValues.id);
-
+        //for loop for ids
         ansUpvotes = await answerUpvotes(ids[0]);
         ansDownvotes = await answerDownvotes(ids[0])
 

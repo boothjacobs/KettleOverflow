@@ -46,16 +46,29 @@ if (qDownvoteButton !== null) {
         let questionId = e.target.id;
         const vote = {vote: false};
         const url = `/questions/${questionId}/votes`;
-
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(vote),
-        });
         let tally = parseInt(qDownVoteDiv.innerHTML, 10);
-        qDownVoteDiv.innerHTML = tally + 1;
+
+        if (qDownvoteButton.clicked !== true) {
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            qDownVoteDiv.innerHTML = tally + 1;
+            qDownvoteButton.clicked = true;
+        } else {
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            qDownVoteDiv.innerHTML = tally - 1;
+        }
+
     });
 }
 
@@ -65,16 +78,28 @@ if (aUpvoteButton !== null) {
         let answerId = e.target.id;
         const url = `/questions/${answerId}/votes`;
         const vote = { vote: true };
-
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(vote),
-        });
         let tally = parseInt(aUpVoteDiv.innerHTML, 10);
-        aUpVoteDiv.innerHTML = tally + 1;
+
+        if (aUpvoteButton.clicked !== true) {
+            await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vote),
+            });
+            aUpVoteDiv.innerHTML = tally + 1;
+            aUpvoteButton.clicked = true;
+        } else {
+            await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vote),
+            });
+            aUpVoteDiv.innerHTML = tally - 1;
+        }
     });
 }
 
@@ -84,17 +109,27 @@ if (aDownvoteButton !== null) {
         let answerId = e.target.id;
         const url = `/questions/${answerId}/votes`;
         const vote = {vote: false};
-
-        console.log(answerId)
-
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(vote),
-        });
         let tally = parseInt(aDownVoteDiv.innerHTML, 10);
-        aDownVoteDiv.innerHTML = tally + 1;
+
+        if (aDownvoteButton.clicked !== true) {
+            await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vote),
+            });
+            aDownVoteDiv.innerHTML = tally + 1;
+            aDownvoteButton.clicked = true;
+        } else {
+            await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(vote),
+            });
+            aDownVoteDiv.innerHTML = tally - 1;
+        }
     });
 }
