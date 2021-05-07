@@ -149,3 +149,11 @@
     color: #EFE4D4;
     background-color: #A9A454;
 }
+
+#submit-edit-button {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+}
