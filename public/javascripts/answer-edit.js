@@ -9,9 +9,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
         button.addEventListener('click', async (event) => {
             answerBox.removeChild(answerFooter)
 
-            // console.log("EDIT IS HAPPENING")
-            // console.log(event.path[1].children[0].innerHTML)
-            // console.log(event.path[1].children)
             const answerContent = event.path[1].children[0]
             const answerId = event.target.id
             const answerBoxNew = document.getElementById(answerId)
@@ -21,8 +18,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
             answerBoxNew.appendChild(form)
 
             const contentSplit = answerContent.innerHTML.split("<")
-            // console.log(contentSplit[0])
-            // how do i reassign the text inner HTML to specific answer
             const textArea = document.createElement('textarea')
             
             textArea.innerHTML = contentSplit[0]
@@ -32,11 +27,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
             form.appendChild(textArea)
             
             const submitEditButton = document.createElement('button')
-            submitEditButton.style.height = '10%'
-            submitEditButton.style.width = '12%'
+            submitEditButton.style.height = '7%'
+            submitEditButton.style.width = '30%'
             submitEditButton.style.marginTop = '2px'
             submitEditButton.style.alignSelf = 'flex-start'
             submitEditButton.setAttribute('type', 'submit')
+            submitEditButton.setAttribute('id', 'submit-edit-button')
             submitEditButton.innerHTML = 'Submit Edit'
             form.appendChild(submitEditButton)
             answerBox.removeChild(answerContentPug)
