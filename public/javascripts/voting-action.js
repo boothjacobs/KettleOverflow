@@ -1,31 +1,42 @@
 const qUpvoteButton = document.querySelector(".question-up-vote");
 const qDownvoteButton = document.querySelector(".question-down-vote");
-const aUpvoteButton = document.querySelector(".answer-up-vote");
-const aDownvoteButton = document.querySelector(".answer-down-vote");
+const aUpvoteButton = document.querySelectorAll(".answer-up-vote");
+const aDownvoteButton = document.querySelectorAll(".answer-down-vote");
 
 const qUpVoteDiv = document.querySelector('.qUpVoteTally');
 const qDownVoteDiv = document.querySelector('.qDownVoteTally');
-const aUpVoteDiv = document.querySelector('.aUpVoteTally');
-const aDownVoteDiv = document.querySelector('.aDownVoteTally');
 
 if (qUpvoteButton !== null) {
     qUpvoteButton.addEventListener("click", async (e) => {
         e.preventDefault();
         let questionId = e.target.id;
-        const vote = { vote: true };
         const url = `/questions/${questionId}/votes`;
+        // let tally = parseInt(qUpVoteDiv.innerHTML, 10);
+        const vote = { vote: true };
 
-        console.log(questionId);
-
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(vote),
-        });
-        let tally = parseInt(qUpVoteDiv.innerHTML, 10);
-        qUpVoteDiv.innerHTML = tally + 1;
+        if (qUpvoteButton.clicked !== true) {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            const data = await res.json();
+            // console.log(data.upvotes)
+            qUpVoteDiv.innerHTML = data.upvotes;
+            qUpvoteButton.clicked = true;
+        } else {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            const data = await res.json();
+            qUpVoteDiv.innerHTML = data.upvotes;
+        }
     });
 }
 
@@ -36,54 +47,100 @@ if (qDownvoteButton !== null) {
         const vote = {vote: false};
         const url = `/questions/${questionId}/votes`;
 
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(vote),
-        });
-        let tally = parseInt(qDownVoteDiv.innerHTML, 10);
-        qDownVoteDiv.innerHTML = tally + 1;
+        if (qDownvoteButton.clicked !== true) {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            const data = await res.json();
+            qDownVoteDiv.innerHTML = data.downvotes;
+            qDownvoteButton.clicked = true;
+        } else {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            const data = await res.json();
+            qDownVoteDiv.innerHTML = data.downvotes;
+        }
+
     });
 }
 
 if (aUpvoteButton !== null) {
-    aUpvoteButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        let answerId = e.target.id;
-        const url = `/questions/${answerId}/votes`;
-        const vote = { vote: true };
+    aUpvoteButton.forEach((button) => {
 
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(vote),
+        button.addEventListener("click", async (e) => {
+            e.preventDefault();
+            let answerId = e.target.id;
+            const aUpVoteDiv = document.querySelector(`.tally${answerId}`);
+            const url = `/answers/${answerId}/votes`;
+            const vote = { vote: true };
+
+            if (aUpvoteButton.clicked !== true) {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(vote),
+                });
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
+                aUpvoteButton.clicked = true;
+            } else {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(vote),
+                });
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
+            }
         });
-        let tally = parseInt(aUpVoteDiv.innerHTML, 10);
-        aUpVoteDiv.innerHTML = tally + 1;
-    });
+    })
 }
 
 if (aDownvoteButton !== null) {
-    aDownvoteButton.addEventListener("click", async (e) => {
-        e.preventDefault();
-        let answerId = e.target.id;
-        const url = `/questions/${answerId}/votes`;
-        const vote = {vote: false};
+    aDownvoteButton.forEach((button) => {
 
-        console.log(answerId)
+        button.addEventListener("click", async (e) => {
+            e.preventDefault();
+            let answerId = e.target.id;
+            const aDownVoteDiv = document.querySelector(`.tallyDown${answerId}`);
+            const url = `/answers/${answerId}/votes`;
+            const vote = {vote: false};
 
-        await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(vote),
+            if (aDownvoteButton.clicked !== true) {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(vote),
+                });
+                const data = await res.json();
+                aDownVoteDiv.innerHTML = data.downvotes.length;
+                aDownvoteButton.clicked = true;
+            } else {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(vote),
+                });
+                const data = await res.json();
+                aDownVoteDiv.innerHTML = data.downvotes.length;
+            }
         });
-        let tally = parseInt(aDownVoteDiv.innerHTML, 10);
-        aDownVoteDiv.innerHTML = tally + 1;
-    });
+    })
 }

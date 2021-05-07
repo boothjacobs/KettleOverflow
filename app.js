@@ -14,12 +14,8 @@ const answersRouter = require('./routes/answers');
 const { sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 
-
-
 const app = express();
 
-
-// view engine setup
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
