@@ -101,11 +101,11 @@ router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandl
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-        await Question.create({
+        const question = await Question.create({
             content,
             userId
         })
-        res.redirect('/')
+        res.redirect(`/questions/${question.id}`)
     }
     else {
       errors = validatorErrors.array().map((error) => error.msg);
