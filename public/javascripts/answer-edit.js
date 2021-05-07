@@ -2,24 +2,30 @@ window.addEventListener("DOMContentLoaded", (event) => {
     const editAnswer = document.querySelector('.edit-answer')
     const answerContent = document.querySelector('.answer-content')
     const answerFooter = document.querySelector('.answer-footer')
-    console.log(editAnswer)
+    const answerBox = document.getElementById("answer-box")
+
     if (editAnswer !== null) {
         editAnswer.addEventListener('click', async (event) => {
-            // answerBox.removeChild(answerFooter)
+            answerBox.removeChild(answerFooter)
+
             console.log("EDIT IS HAPPENING")
             console.log(event.target)
+
             const answerId = event.target.id
-            const answerBox = document.getElementById(answerId)
+            const answerBoxNew = document.getElementById(answerId)
             const form = document.createElement('form')
             form.style.display = 'flex'
             form.style.flexDirection = 'column'
-            answerBox.appendChild(form)
+            answerBoxNew.appendChild(form)
+
+            // how do i reassign the text inner HTML to specific answer
             const textArea = document.createElement('textarea')
             textArea.innerHTML = answerContent.innerHTML
             textArea.style.resize = 'none'
             textArea.style.height = '10%'
             textArea.style.fontSize = '1rem'
             form.appendChild(textArea)
+            
             const submitEditButton = document.createElement('button')
             submitEditButton.style.height = '10%'
             submitEditButton.style.width = '12%'
@@ -46,3 +52,4 @@ window.addEventListener("DOMContentLoaded", (event) => {
         })
     })
     }
+})
