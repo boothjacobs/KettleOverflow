@@ -42,3 +42,16 @@ Picture of home page
 -	Search result page includes up votes/down votes
 
 
+## Particular Challenges
+
+### Sarah: 
+
+Implementing upvotes/downvotes turned out to be a massive project, involving 140 lines of JavaScript, five helper functions, and database calls in three different route handlers. In order to display up-to-date vote tallies on the question pages, I ultimately built an object to store the result of the database calls in the route handler and passed it to the Pug file, while executing an explicit res.send command in the /votes post route to update the page in real time. The biggest issue was communicating data between Express routes, backend JavaScript, and Pug files.
+   
+> Sequelize helper function: 
+![Screen Shot 2021-05-07 at 2 15 38 PM](https://user-images.githubusercontent.com/75630072/117509285-cf8eaf80-af3e-11eb-8bae-26dc111c4e81.png)
+	
+>In the GET call to display a question:
+   ![Screen Shot 2021-05-07 at 2 15 24 PM](https://user-images.githubusercontent.com/75630072/117509241-c271c080-af3e-11eb-9031-5e9ed432fd52.png)
+
+>In the Pug mixin: ` #{answerVotes[answerId].length}`
