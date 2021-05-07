@@ -2,6 +2,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
     const deleteButton = document.querySelector(".delete-answer")
 
+    if (deleteButton !== null) {
     deleteButton.addEventListener("click", async (event) => {
         event.preventDefault()
         const answerId = event.target.id
@@ -11,5 +12,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
                 window.location.reload()
     })
+}
 
 })
