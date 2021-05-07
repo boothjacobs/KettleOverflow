@@ -134,7 +134,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
             downvotesA = await answerDownvotes(ids[i]);
         }
     }
-    console.log(upvotesA, downvotesA);
+   
     let title;
     if (!question) {
         title = 'Nothing To See Here'
