@@ -109,11 +109,9 @@ router.post('/form', requireAuth, csrfProtection, questionValidators, asyncHandl
 router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const question = await Question.findByPk(req.params.id,
         { include: [Answer, User] })
-    
+
     const upvotes = await questionUpvotes(req.params.id);
     const downvotes = await questionDownvotes(req.params.id);
-    res.render('question', {
-        question, 
 
     let title;
     if (!question) {
@@ -126,10 +124,10 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     res.render('question', {
         question,
         title,
-        upvotes, 
+        upvotes,
         downvotes
     })
-}))
+}));
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const questionId = req.params.id;
