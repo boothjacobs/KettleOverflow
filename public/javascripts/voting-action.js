@@ -11,29 +11,31 @@ if (qUpvoteButton !== null) {
         e.preventDefault();
         let questionId = e.target.id;
         const url = `/questions/${questionId}/votes`;
-        let tally = parseInt(qUpVoteDiv.innerHTML, 10);
+        // let tally = parseInt(qUpVoteDiv.innerHTML, 10);
         const vote = { vote: true };
 
         if (qUpvoteButton.clicked !== true) {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(vote),
             });
-
-            qUpVoteDiv.innerHTML = tally + 1;
+            const data = await res.json();
+            // console.log(data.upvotes)
+            qUpVoteDiv.innerHTML = data.upvotes;
             qUpvoteButton.clicked = true;
         } else {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(vote),
             });
-            if (tally > 0) qUpVoteDiv.innerHTML = tally - 1;
+            const data = await res.json();
+            qUpVoteDiv.innerHTML = data.upvotes;
         }
     });
 }
@@ -44,27 +46,28 @@ if (qDownvoteButton !== null) {
         let questionId = e.target.id;
         const vote = {vote: false};
         const url = `/questions/${questionId}/votes`;
-        let tally = parseInt(qDownVoteDiv.innerHTML, 10);
 
         if (qDownvoteButton.clicked !== true) {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(vote),
             });
-            qDownVoteDiv.innerHTML = tally + 1;
+            const data = await res.json();
+            qDownVoteDiv.innerHTML = data.downvotes;
             qDownvoteButton.clicked = true;
         } else {
-            await fetch(url, {
+            const res = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(vote),
             });
-            if (tally > 0) qDownVoteDiv.innerHTML = tally - 1;
+            const data = await res.json();
+            qDownVoteDiv.innerHTML = data.downvotes;
         }
 
     });
@@ -79,27 +82,28 @@ if (aUpvoteButton !== null) {
             const aUpVoteDiv = document.querySelector(`.tally${answerId}`);
             const url = `/answers/${answerId}/votes`;
             const vote = { vote: true };
-            let tally = parseInt(aUpVoteDiv.innerHTML, 10);
 
             if (aUpvoteButton.clicked !== true) {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                aUpVoteDiv.innerHTML = tally + 1;
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
                 aUpvoteButton.clicked = true;
             } else {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                if (tally > 0) aUpVoteDiv.innerHTML = tally - 1;
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
             }
         });
     })
@@ -114,27 +118,28 @@ if (aDownvoteButton !== null) {
             const aDownVoteDiv = document.querySelector(`.tallyDown${answerId}`);
             const url = `/answers/${answerId}/votes`;
             const vote = {vote: false};
-            let tally = parseInt(aDownVoteDiv.innerHTML, 10);
 
             if (aDownvoteButton.clicked !== true) {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                aDownVoteDiv.innerHTML = tally + 1;
+                const data = await res.json();
+                aDownVoteDiv.innerHTML = data.downvotes.length;
                 aDownvoteButton.clicked = true;
             } else {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                if (tally > 0) aDownVoteDiv.innerHTML = tally - 1;
+                const data = await res.json();
+                aDownVoteDiv.innerHTML = data.downvotes.length;
             }
         });
     })

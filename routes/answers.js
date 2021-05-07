@@ -8,7 +8,7 @@ const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
 async function voteExists(answerId, userId) {
-    await AnswerVote.findOne({
+    const ifVote = await AnswerVote.findOne({
         where: {
             [Op.and]: [
                 { answerId },
@@ -16,6 +16,23 @@ async function voteExists(answerId, userId) {
             ]
         }
     });
+    return ifVote;
+};
+async function answerUpvotes(answerId) {
+    const answerUpvotes = await AnswerVote.findAll({
+        where: {
+            [Op.and]: [ { answerId }, { upVote: true } ]
+        }
+    });
+    return answerUpvotes;
+};
+async function answerDownvotes(answerId) {
+    const answerDownvotes = await AnswerVote.findAll({
+        where: {
+            [Op.and]: [ { answerId }, { upVote: false } ]
+        }
+    });
+    return answerDownvotes;
 };
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
@@ -46,7 +63,6 @@ router.post('/:id/votes', asyncHandler(async (req, res) => {
     const { vote } = req.body;
 
     const alreadyVote = await voteExists(answerId, userId);
-// console.log(userId, "answer: ", answerId, alreadyVote)
     if (alreadyVote) {
         await alreadyVote.destroy();
     } else {
@@ -56,7 +72,12 @@ router.post('/:id/votes', asyncHandler(async (req, res) => {
             answerId
         });
     }
-    res.end();
+
+    let upvotesA = await answerUpvotes(answerId);
+    let downvotesA = await answerDownvotes(answerId);
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send({upvotes: upvotesA, downvotes: downvotesA});
 }));
 
 module.exports = router;
