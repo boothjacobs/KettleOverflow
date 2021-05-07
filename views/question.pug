@@ -28,7 +28,7 @@ block content
             each answer in question.Answers
                 div(id='question-extra')
                     div(class="remove-div" id='answer-box')
-                        p(class='answer-content')= answer.content
+                        p(class='answer-content' id=answer.id)= answer.content
                         div(class='answer-footer')
                         if locals.user
                             +aUpvote(question.Answers.id)
