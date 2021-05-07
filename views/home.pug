@@ -32,6 +32,6 @@ block content
         each question in questions
           tr(id="to-hover")
             td(id="usernames")
-              a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.User.username
+              a(id="question-body__anchor" href=`/questions/${question.id}`)= question.User.username
             td(id="question-body")
-              a(id="question-body__anchor" href=`http://localhost:8080/questions/${question.id}`)= question.content
+              a(id="question-body__anchor" href=`/questions/${question.id}`)= question.content

@@ -24,20 +24,20 @@ async function questionDownvotes(questionId) {
     return downVoteTally;
 };
 async function answerUpvotes(answerId) {
-    const upVoteTally = await AnswerVote.count({
+    const answerUpvotes = await AnswerVote.count({
         where: {
             [Op.and]: [ { answerId }, { upVote: true } ]
         }
     });
-    return upVoteTally;
+    return answerUpvotes;
 };
 async function answerDownvotes(answerId) {
-    const downVoteTally = await AnswerVote.count({
+    const answerDownvotes = await AnswerVote.count({
         where: {
             [Op.and]: [ { answerId }, { upVote: false } ]
         }
     });
-    return downVoteTally;
+    return answerDownvotes;
 };
 async function voteExists(questionId, userId) {
     const answer = await QuestionVote.findOne({
@@ -125,15 +125,18 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answers = await Answer.findAll({
         where: { questionId: req.params.id }
     });
-    const ids = answers.map((ele) => ele.dataValues.id);
     let ansUpvotes;
     let ansDownvotes;
-    ids.forEach(async (id) => {
-        ansUpvotes = await answerUpvotes(id);
-        ansDownvotes = await answerDownvotes(id)
-    });
+    if (answers) {
+         const ids = answers.map((ele) => ele.dataValues.id);
+        ids.forEach(async (id) => {
+            ansUpvotes = await answerUpvotes(id);
+            ansDownvotes = await answerDownvotes(id)
+        });
+        console.log("answerIds: ", ids)
+        console.log("upvotes: ", ansUpvotes, "downvotes: ", ansDownvotes)
+    }
 
-    console.log(ansUpvotes, ansDownvotes)
 
     let title;
     if (!question) {
