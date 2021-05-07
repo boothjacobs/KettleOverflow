@@ -23,6 +23,7 @@ if (qUpvoteButton !== null) {
                 body: JSON.stringify(vote),
             });
 
+            // console.log("CLICK")
             qUpVoteDiv.innerHTML = tally + 1;
             qUpvoteButton.clicked = true;
         } else {
@@ -33,7 +34,8 @@ if (qUpvoteButton !== null) {
                 },
                 body: JSON.stringify(vote),
             });
-            if (tally > 0) qUpVoteDiv.innerHTML = tally - 1;
+            // if (tally > 0) qUpVoteDiv.innerHTML = tally - 1;
+            window.location.reload();
         }
     });
 }
@@ -65,6 +67,7 @@ if (qDownvoteButton !== null) {
                 body: JSON.stringify(vote),
             });
             if (tally > 0) qDownVoteDiv.innerHTML = tally - 1;
+            window.location.reload();
         }
 
     });
@@ -79,27 +82,29 @@ if (aUpvoteButton !== null) {
             const aUpVoteDiv = document.querySelector(`.tally${answerId}`);
             const url = `/answers/${answerId}/votes`;
             const vote = { vote: true };
-            let tally = parseInt(aUpVoteDiv.innerHTML, 10);
 
             if (aUpvoteButton.clicked !== true) {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                aUpVoteDiv.innerHTML = tally + 1;
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
+                console.log(data.upvotes.length)
                 aUpvoteButton.clicked = true;
             } else {
-                await fetch(url, {
+                const res = await fetch(url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(vote),
                 });
-                if (tally > 0) aUpVoteDiv.innerHTML = tally - 1;
+                const data = await res.json();
+                aUpVoteDiv.innerHTML = data.upvotes.length;
             }
         });
     })
@@ -134,7 +139,8 @@ if (aDownvoteButton !== null) {
                     },
                     body: JSON.stringify(vote),
                 });
-                if (tally > 0) aDownVoteDiv.innerHTML = tally - 1;
+                // if (tally > 0) aDownVoteDiv.innerHTML = tally - 1;
+                window.location.reload();
             }
         });
     })
