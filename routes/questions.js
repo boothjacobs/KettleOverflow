@@ -150,6 +150,7 @@ router.post('/:id(\\d+)/answers', requireAuth, asyncHandler(async (req, res) => 
     res.redirect(`/questions/${questionId}`)
 }))
 
+
 router.post('/:id/votes', asyncHandler(async (req, res) => {
     const questionId = req.params.id;
     const { userId } = req.session.auth;
