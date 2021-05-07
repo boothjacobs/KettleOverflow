@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { requireAuth } = require('../auth') //Need login/ logout
 const { check, validationResult } = require('express-validator');
-const { Question, User, Answer, QuestionVote, sequelize, Sequelize } = require('../db/models')
+const { Question, User, Answer, QuestionVote, AnswerVote, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
@@ -18,21 +18,31 @@ async function questionUpvotes(questionId) {
 async function questionDownvotes(questionId) {
     const downVoteTally = await QuestionVote.count({
         where: {
-            [Op.and]: [
-                { questionId },
-                { upVote: false },
-            ]
+            [Op.and]: [ { questionId }, { upVote: false } ]
         }
     });
     return downVoteTally;
 };
+async function answerUpvotes(answerId) {
+    const answerUpvotes = await AnswerVote.count({
+        where: {
+            [Op.and]: [ { answerId }, { upVote: true } ]
+        }
+    });
+    return answerUpvotes;
+};
+async function answerDownvotes(answerId) {
+    const answerDownvotes = await AnswerVote.count({
+        where: {
+            [Op.and]: [ { answerId }, { upVote: false } ]
+        }
+    });
+    return answerDownvotes;
+};
 async function voteExists(questionId, userId) {
     const answer = await QuestionVote.findOne({
         where: {
-            [Op.and]: [
-                { questionId },
-                { userId },
-            ]
+            [Op.and]: [ { questionId }, { userId } ]
         }
     });
     return answer;
@@ -112,6 +122,22 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const upvotes = await questionUpvotes(req.params.id);
     const downvotes = await questionDownvotes(req.params.id);
 
+    const answers = await Answer.findAll({
+        where: { questionId: req.params.id }
+    });
+    let ansUpvotes;
+    let ansDownvotes;
+    if (answers) {
+         const ids = answers.map((ele) => ele.dataValues.id);
+        ids.forEach(async (id) => {
+            ansUpvotes = await answerUpvotes(id);
+            ansDownvotes = await answerDownvotes(id)
+        });
+        console.log("answerIds: ", ids)
+        console.log("upvotes: ", ansUpvotes, "downvotes: ", ansDownvotes)
+    }
+
+
     let title;
     if (!question) {
         title = 'Nothing To See Here'
@@ -124,7 +150,9 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         question,
         title,
         upvotes,
-        downvotes
+        downvotes,
+        ansUpvotes,
+        ansDownvotes
     })
 }));
 

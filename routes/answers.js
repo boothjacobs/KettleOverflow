@@ -7,28 +7,6 @@ const { Question, User, Answer, AnswerVote, sequelize, Sequelize } = require('..
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
-async function answerUpvotes(answerId) {
-    const upVoteTally = await AnswerVote.count({
-        where: {
-            [Op.and]: [
-                { answerId },
-                { upVote: true },
-            ]
-        }
-    });
-    return upVoteTally;
-};
-async function answerDownvotes(answerId) {
-    const downVoteTally = await AnswerVote.count({
-        where: {
-            [Op.and]: [
-                { answerId },
-                { upVote: false },
-            ]
-        }
-    });
-    return downVoteTally;
-};
 async function voteExists(answerId, userId) {
     await AnswerVote.findOne({
         where: {
@@ -68,7 +46,7 @@ router.post('/:id/votes', asyncHandler(async (req, res) => {
     const { vote } = req.body;
 
     const alreadyVote = await voteExists(answerId, userId);
-
+console.log(userId, "answer: ", answerId, alreadyVote)
     if (alreadyVote) {
         await alreadyVote.destroy();
     } else {
