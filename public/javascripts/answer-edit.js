@@ -27,8 +27,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
             form.appendChild(textArea)
             
             const submitEditButton = document.createElement('button')
-            submitEditButton.style.height = '10%'
-            submitEditButton.style.width = '20%'
+            submitEditButton.style.height = '7%'
+            submitEditButton.style.width = '30%'
             submitEditButton.style.marginTop = '2px'
             submitEditButton.style.alignSelf = 'flex-start'
             submitEditButton.setAttribute('type', 'submit')
