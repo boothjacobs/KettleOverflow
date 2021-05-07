@@ -20,7 +20,7 @@ async function voteExists(answerId, userId) {
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
-    console.log(req.params.id)
+    // console.log(req.params.id)
     const answer = await Answer.findByPk(answerId)
     // console.log(answer)
     answer.content = req.body.content

@@ -16,7 +16,7 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
         limit: 10,
     });
     const number = Math.ceil(Math.random() * 5).toString()
-    console.log(number, '-----------------------------')
+    // console.log(number, '-----------------------------')
     res.render('home', {
         title: 'Kettle Overflow',
         csrfToken: req.csrfToken(),

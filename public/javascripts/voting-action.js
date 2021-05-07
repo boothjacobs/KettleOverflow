@@ -81,8 +81,6 @@ if (aUpvoteButton !== null) {
             const vote = { vote: true };
             let tally = parseInt(aUpVoteDiv.innerHTML, 10);
 
-            // console.log(tally, aUpVoteDiv)
-
             if (aUpvoteButton.clicked !== true) {
                 await fetch(url, {
                     method: "POST",
@@ -117,7 +115,7 @@ if (aDownvoteButton !== null) {
             const url = `/answers/${answerId}/votes`;
             const vote = {vote: false};
             let tally = parseInt(aDownVoteDiv.innerHTML, 10);
-            
+
             if (aDownvoteButton.clicked !== true) {
                 await fetch(url, {
                     method: "POST",
