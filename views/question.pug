@@ -30,24 +30,16 @@ block content
                         p(class='answer-content')= answer.content
                         div(class='answer-footer')
                         if locals.user
-                            if locals.user.id === answer.userId 
+                            if locals.user.id === answer.userId
                                 button(class='edit-answer' id=answer.id) Edit
-                                button(class='delete-answer' id=answer.id) Delete 
+                                button(class='delete-answer' id=answer.id) Delete
 
             form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
                 input(name="questionId" value=question.id type="hidden")
                 div
                     textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
                 div
-                    button(type="submit" id="submit-answer") Submit Answer 
-
-                            //- p(class="created-by") Answered by #{answer.User.username}
-                form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
-                    input(name="questionId" value=question.id type="hidden")
-                    div
-                        textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
-                    div
-                        button(type="submit" id="submit-answer") Submit Answer
+                    button(type="submit" id="submit-answer") Submit Answer
         else
             div(id='redirect')
                 h1 ☕Nothing to see here☕
