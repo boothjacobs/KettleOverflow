@@ -156,4 +156,10 @@
     cursor: pointer;
     height: 25px;
     font-size: 15px;
+    margin: 5px;
+}
+
+#submit-edit-button:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
 }
