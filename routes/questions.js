@@ -24,7 +24,7 @@ async function questionDownvotes(questionId) {
     return downVoteTally;
 };
 async function answerUpvotes(answerId) {
-    const answerUpvotes = await AnswerVote.count({
+    const answerUpvotes = await AnswerVote.findAll({
         where: {
             [Op.and]: [ { answerId }, { upVote: true } ]
         }
@@ -32,7 +32,7 @@ async function answerUpvotes(answerId) {
     return answerUpvotes;
 };
 async function answerDownvotes(answerId) {
-    const answerDownvotes = await AnswerVote.count({
+    const answerDownvotes = await AnswerVote.findAll({
         where: {
             [Op.and]: [ { answerId }, { upVote: false } ]
         }
@@ -125,24 +125,20 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answers = await Answer.findAll({
         where: { questionId: req.params.id }
     });
-    let ansUpvotes;
-    let ansDownvotes;
+    let upvotesA;
+    let downvotesA;
     if (answers) {
         const ids = answers.map((ele) => ele.dataValues.id);
-        //for loop for ids
-        ansUpvotes = await answerUpvotes(ids[0]);
-        ansDownvotes = await answerDownvotes(ids[0])
-
-        console.log("answerIds: ", ids)
-        console.log("upvotes: ", ansUpvotes, "downvotes: ", ansDownvotes)
+        for (let i = 0; i < ids.length; i++) {
+            upvotesA = await answerUpvotes(ids[i]);
+            downvotesA = await answerDownvotes(ids[i]);
+        }
     }
-
-
+    console.log(upvotesA, downvotesA);
     let title;
     if (!question) {
         title = 'Nothing To See Here'
-    }
-    else {
+    } else {
         title = question.content
     }
 
@@ -151,8 +147,8 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         title,
         upvotes,
         downvotes,
-        ansUpvotes,
-        ansDownvotes
+        upvotesA,
+        downvotesA
     })
 }));
 
