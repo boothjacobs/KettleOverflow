@@ -1,7 +1,7 @@
 # Kettle Overflow
 
 
-Picture of home page
+![Screen Shot 2021-05-07 at 1 54 42 PM](https://user-images.githubusercontent.com/75630072/117512956-80984880-af45-11eb-856f-fa2380f842ed.png)
 
  [Kettle Overflow](https://kettle-overflow.herokuapp.com/)
 
@@ -73,6 +73,8 @@ This was the first time that we had to update the database using a PUT request, 
 
 > Fetch request: 
 ![fetch-put](https://user-images.githubusercontent.com/78223925/117510133-23a28f80-af51-11eb-9312-5570b093592e.PNG)
+
+
 > PUT router: 
 ![router-put](https://user-images.githubusercontent.com/78223925/117510175-37e68c80-af51-11eb-8034-bb84bb78cde3.PNG)
 
