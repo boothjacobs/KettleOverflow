@@ -126,18 +126,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answers = await Answer.findAll({
         where: { questionId: req.params.id }
     });
-    // let answerVotes = {};
-    // if (answers) {
-    //     const ids = answers.map((ele) => ele.dataValues.id);
-    //     for (let i = 0; i < ids.length; i++) {
-    //         let upvotesA = await answerUpvotes(ids[i]);
-    //         let downvotesA = await answerDownvotes(ids[i]);
-    //         answerVotes[`${ids[i]}`] = upvotesA;
-    //         answerVotes[`${ids[i]}`] = downvotesA;
-    //     }
-    // }
 
-    // let answerKeys = Object.keys(answerVotes);
     let answerVotes = {};
     if (answers) {
         const ids = answers.map((ele) => ele.dataValues.id);
@@ -148,7 +137,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
             answerVotes[`${ids[i]}`] = downvotesA;
         }
     }
-    let answerKeys = Object.keys(answerVotes);
 
     let title;
     if (!question) {
@@ -161,7 +149,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         title,
         upvotes,
         downvotes,
-        // answerVotes,
+        answerVotes,
         // answerKeys
     });
 }));

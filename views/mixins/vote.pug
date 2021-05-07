@@ -8,11 +8,9 @@ mixin qDownvote(questionId)
     div(id=questionId class="question-down-vote") 🔽
 
 mixin aUpvote(answerId)
-    div(class=`tally${answerId}`)
-    //-  #{answerVotes[answerId].length}
+    div(class=`tally${answerId}`) #{answerVotes[answerId].length}
     div(id=answerId class="answer-up-vote") 🔼
 
 mixin aDownvote(answerId)
-    div(class=`tallyDown${answerId}`)
-    //- #{answerVotes[answerId].length}
+    div(class=`tallyDown${answerId}`) #{answerVotes[answerId].length}
     div(id=answerId class="answer-down-vote") 🔽
