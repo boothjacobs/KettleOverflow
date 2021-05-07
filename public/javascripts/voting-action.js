@@ -12,20 +12,31 @@ if (qUpvoteButton !== null) {
     qUpvoteButton.addEventListener("click", async (e) => {
         e.preventDefault();
         let questionId = e.target.id;
-        const vote = { vote: true };
         const url = `/questions/${questionId}/votes`;
-
-        console.log(questionId);
-
-        await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(vote),
-        });
         let tally = parseInt(qUpVoteDiv.innerHTML, 10);
-        qUpVoteDiv.innerHTML = tally + 1;
+        const vote = { vote: true };
+
+        if (qUpvoteButton.clicked !== true) {
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+
+            qUpVoteDiv.innerHTML = tally + 1;
+            qUpvoteButton.clicked = true;
+        } else {
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(vote),
+            });
+            qUpVoteDiv.innerHTML = tally - 1;
+        }
     });
 }
 

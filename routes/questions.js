@@ -128,11 +128,11 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     let ansUpvotes;
     let ansDownvotes;
     if (answers) {
-         const ids = answers.map((ele) => ele.dataValues.id);
-        ids.forEach(async (id) => {
-            ansUpvotes = await answerUpvotes(id);
-            ansDownvotes = await answerDownvotes(id)
-        });
+        const ids = answers.map((ele) => ele.dataValues.id);
+
+        ansUpvotes = await answerUpvotes(ids[0]);
+        ansDownvotes = await answerDownvotes(ids[0])
+
         console.log("answerIds: ", ids)
         console.log("upvotes: ", ansUpvotes, "downvotes: ", ansDownvotes)
     }
