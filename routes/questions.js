@@ -18,22 +18,15 @@ async function questionUpvotes(questionId) {
 async function questionDownvotes(questionId) {
     const downVoteTally = await QuestionVote.count({
         where: {
-            [Op.and]: [
-                { questionId },
-                { upVote: false },
-            ]
+            [Op.and]: [ { questionId }, { upVote: false } ]
         }
     });
     return downVoteTally;
 };
-
 async function answerUpvotes(answerId) {
     const upVoteTally = await AnswerVote.count({
         where: {
-            [Op.and]: [
-                { answerId },
-                { upVote: true },
-            ]
+            [Op.and]: [ { answerId }, { upVote: true } ]
         }
     });
     return upVoteTally;
@@ -41,10 +34,7 @@ async function answerUpvotes(answerId) {
 async function answerDownvotes(answerId) {
     const downVoteTally = await AnswerVote.count({
         where: {
-            [Op.and]: [
-                { answerId },
-                { upVote: false },
-            ]
+            [Op.and]: [ { answerId }, { upVote: false } ]
         }
     });
     return downVoteTally;
@@ -52,10 +42,7 @@ async function answerDownvotes(answerId) {
 async function voteExists(questionId, userId) {
     const answer = await QuestionVote.findOne({
         where: {
-            [Op.and]: [
-                { questionId },
-                { userId },
-            ]
+            [Op.and]: [ { questionId }, { userId } ]
         }
     });
     return answer;

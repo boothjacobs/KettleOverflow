@@ -7,6 +7,17 @@ const { Question, User, Answer, AnswerVote, sequelize, Sequelize } = require('..
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
+async function voteExists(answerId, userId) {
+    await AnswerVote.findOne({
+        where: {
+            [Op.and]: [
+                { answerId },
+                { userId },
+            ]
+        }
+    });
+};
+
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
     // console.log(req.params.id)
@@ -28,24 +39,6 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
     res.redirect('/')
 
 }));
-
-
-
-
-
-
-
-async function voteExists(answerId, userId) {
-    await AnswerVote.findOne({
-        where: {
-            [Op.and]: [
-                { answerId },
-                { userId },
-            ]
-        }
-    });
-};
-
 
 router.post('/:id/votes', asyncHandler(async (req, res) => {
     const answerId = req.params.id;
