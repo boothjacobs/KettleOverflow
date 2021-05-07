@@ -14,6 +14,7 @@ Picture of home page
 -   Answer questions about Tea
 -   Edit either questions or answers that belong to the user
 -   Delete answers that belong to the user
+-   Search for a question using the search bar
 
 ## Technologies Used
 
@@ -65,4 +66,13 @@ Grabbing the corrent answer ID and content
 
 Assigning the correct content to the textarea
 <img width="509" alt="Screen Shot 2021-05-07 at 2 14 03 PM" src="https://user-images.githubusercontent.com/68528608/117509744-a1f63600-af3f-11eb-9459-10f204a09903.png">
+
+### Drew:
+
+This was the first time that we had to update the database using a PUT request, so we had difficulty connecting the request to the route that is in our express file. We found that the content we were trying to send was located on the req.body because it is sent in the PUT request's body.
+
+> Fetch request: 
+![fetch-put](https://user-images.githubusercontent.com/78223925/117510133-23a28f80-af51-11eb-9312-5570b093592e.PNG)
+> PUT router: 
+![router-put](https://user-images.githubusercontent.com/78223925/117510175-37e68c80-af51-11eb-8034-bb84bb78cde3.PNG)
 
