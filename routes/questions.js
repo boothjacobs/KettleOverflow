@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { requireAuth } = require('../auth') //Need login/ logout
 const { check, validationResult } = require('express-validator');
-const { Question, User, Answer, QuestionVote, sequelize, Sequelize } = require('../db/models')
+const { Question, User, Answer, QuestionVote, AnswerVote, sequelize, Sequelize } = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 const { Op } = require("sequelize");
 
@@ -20,6 +20,29 @@ async function questionDownvotes(questionId) {
         where: {
             [Op.and]: [
                 { questionId },
+                { upVote: false },
+            ]
+        }
+    });
+    return downVoteTally;
+};
+
+async function answerUpvotes(answerId) {
+    const upVoteTally = await AnswerVote.count({
+        where: {
+            [Op.and]: [
+                { answerId },
+                { upVote: true },
+            ]
+        }
+    });
+    return upVoteTally;
+};
+async function answerDownvotes(answerId) {
+    const downVoteTally = await AnswerVote.count({
+        where: {
+            [Op.and]: [
+                { answerId },
                 { upVote: false },
             ]
         }
@@ -112,6 +135,19 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const upvotes = await questionUpvotes(req.params.id);
     const downvotes = await questionDownvotes(req.params.id);
 
+    const answers = await Answer.findAll({
+        where: { questionId: req.params.id }
+    });
+    const ids = answers.map((ele) => ele.dataValues.id);
+    let ansUpvotes;
+    let ansDownvotes;
+    ids.forEach(async (id) => {
+        ansUpvotes = await answerUpvotes(id);
+        ansDownvotes = await answerDownvotes(id)
+    });
+
+    console.log(ansUpvotes, ansDownvotes)
+
     let title;
     if (!question) {
         title = 'Nothing To See Here'
@@ -124,7 +160,9 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         question,
         title,
         upvotes,
-        downvotes
+        downvotes,
+        ansUpvotes,
+        ansDownvotes
     })
 }));
 
