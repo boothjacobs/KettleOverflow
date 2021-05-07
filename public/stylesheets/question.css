@@ -81,3 +81,68 @@
     align-items: center;
 
 }
+
+.answer-form {
+    padding: 20px;
+}
+
+.answer-form-textarea {
+    text-align: center;
+    font-size: 15px;
+    outline: none;
+}
+
+#submit-answer {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+}
+
+#submit-answer:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
+}
+
+.edit-answer {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+
+}
+
+.edit-answer:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
+}
+
+.delete-answer {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+    margin: 5px;
+}
+
+.delete-answer:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
+}
+
+.edit {
+    background-color: #b07946;
+    border: 1px solid grey;
+    cursor: pointer;
+    height: 25px;
+    font-size: 15px;
+    margin: 2px;
+}
+
+.edit:hover {
+    color: #EFE4D4;
+    background-color: #A9A454;
+}
