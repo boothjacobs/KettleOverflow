@@ -38,7 +38,6 @@ async function voteExists(questionId, userId) {
     return answer;
 };
 
-
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
     const questions = await Question.findAll({
         include: [User],
