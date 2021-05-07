@@ -136,7 +136,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         }
     }
     let answerKeys = Object.keys(answerVotes);
-    // console.log(answerKeys)
+    
     let title;
     if (!question) {
         title = 'Nothing To See Here'

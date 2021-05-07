@@ -11,7 +11,6 @@ if (qUpvoteButton !== null) {
         e.preventDefault();
         let questionId = e.target.id;
         const url = `/questions/${questionId}/votes`;
-        // let tally = parseInt(qUpVoteDiv.innerHTML, 10);
         const vote = { vote: true };
 
         if (qUpvoteButton.clicked !== true) {
@@ -23,7 +22,6 @@ if (qUpvoteButton !== null) {
                 body: JSON.stringify(vote),
             });
             const data = await res.json();
-            // console.log(data.upvotes)
             qUpVoteDiv.innerHTML = data.upvotes;
             qUpvoteButton.clicked = true;
         } else {
