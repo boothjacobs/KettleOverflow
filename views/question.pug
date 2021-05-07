@@ -13,61 +13,39 @@ append head
 block content
     body(class="question-body")
         div(id='page-container')
-            div(id='question-box')
-                p(class='question-content')= question.content
-                div(class='question-footer')
-                    +qUpvote(question.id)
-                    +qDownvote(question.id)
-                    if locals.user
-                        if locals.user.id === question.userId
-                            button(class='edit') Edit
-                        else
-                            div
-                        p(class="created-by") Question asked by #{question.User.username}
-            if question.Answers.length
-                each answer in question.Answers
-                    div(id='question-extra')
-                        div(class="remove-div" id='answer-box')
-                            p(class='answer-content' id=answer.id)= answer.content
-                            div(class='answer-footer')
-                            if locals.user
-                                //- +aUpvote(answer.id)
-                                //- +aDownvote(answer.id)
-                                if locals.user.id === answer.userId
-                                    button(class='edit-answer' id=answer.id) Edit
-                                    button(class='delete-answer' id=answer.id) Delete
-
-        div(id='question-box')
-            p(class='question-content')= question.content
-            div(class='question-footer')
-                +qUpvote(question.id)
-                +qDownvote(question.id)
-                if locals.user
-                    if locals.user.id === question.userId
-                        button(class='edit') Edit
-                    else
-                        div
-                    p(class="created-by") Question asked by #{question.User.username}
-        if question.Answers.length
-            each answer in question.Answers
-                div(id='question-extra')
-                    div(class="remove-div" id='answer-box')
-                        p(class='answer-content' id=answer.id)= answer.content
-                        div(class='answer-footer')
+            if question
+                div(id='question-box')
+                    p(class='question-content')= question.content
+                    div(class='question-footer')
+                        +qUpvote(question.id)
+                        +qDownvote(question.id)
                         if locals.user
-                            +aUpvote(answer.id)
-                            +aDownvote(answer.id)
-                            if locals.user.id === answer.userId
-                                button(class='edit-answer' id=answer.id) Edit
-                                button(class='delete-answer' id=answer.id) Delete
+                            if locals.user.id === question.userId
+                                button(class='edit') Edit
+                            else
+                                div
+                            p(class="created-by") Question asked by #{question.User.username}
 
-            form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
-                    input(name="questionId" value=question.id type="hidden")
-                    div(class="answer-form-textarea")
-                        textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
-                    div
-                        button(type="submit" id="submit-answer") Submit Answer
+                if question.Answers.length
+                    each answer in question.Answers
+                        div(id='question-extra')
+                            div(class="remove-div" id='answer-box')
+                                p(class='answer-content' id=answer.id)= answer.content
+                                div(class='answer-footer')
+                                if locals.user
+                                    +aUpvote(answer.id)
+                                    +aDownvote(answer.id)
+                                    if locals.user.id === answer.userId
+                                        button(class='edit-answer' id=answer.id) Edit
+                                        button(class='delete-answer' id=answer.id) Delete
+
+                    form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                            input(name="questionId" value=question.id type="hidden")
+                            div(class="answer-form-textarea")
+                                textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                            div
+                                button(type="submit" id="submit-answer") Submit Answer
             else
                 div(id='redirect')
                     h1 ☕Nothing to see here☕
-                    a(href="https://localhost:8080/") Click Here To Go Back To The Home Page
+                    a(href="/") Click Here To Go Back To The Home Page
