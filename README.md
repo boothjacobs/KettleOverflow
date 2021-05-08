@@ -51,7 +51,7 @@
 
 ### Sarah: 
 
-Implementing upvotes/downvotes turned out to be a massive project, involving 140 lines of JavaScript, five helper functions, and database calls in three different route handlers. 
+Implementing upvotes/downvotes turned out to be a massive project, involving 140 lines of JavaScript, five helper functions, and database calls in three different route handlers. The database request that we used to populate answers gave us access to total votes, but not an immediately accessible way to distinguish between upvotes and downvotes. The problem remained of how to display two different AnswerVote counts for each answer displaying on the page.
 
 ### Lauren's Challenge
 In the event listener I wrote for the Edit Answer button, I found it difficult to grab both the ID and content of specific answers in the database. The answer content was being populated on the page through iteration in the pug file. This made it so there weren't specific classes or ids for each answer, so I set an id of "answer.id" on the edit button, and used event.target.id to grab the answer ID. To grab the correct answer content, I saved event.path[1].children[0] to a variable and then split that variable on the section of the innerHTML that started with "<". I assigned the split variable to "contentSplit" and then reassigned the textarea innerHTML to contentSplit[0].
