@@ -32,9 +32,9 @@ block content
                             div(class="remove-div" id='answer-box')
                                 p(class='answer-content' id=answer.id)= answer.content
                                 div(class='answer-footer')
-                                if locals.user
                                     +aUpvote(answer.id)
                                     +aDownvote(answer.id)
+                                if locals.user
                                     if locals.user.id === answer.userId
                                         button(class='edit-answer' id=answer.id) Edit
                                         button(class='delete-answer' id=answer.id) Delete

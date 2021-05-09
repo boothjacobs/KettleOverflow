@@ -37,9 +37,9 @@ async function answerDownvotes(answerId) {
 
 router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
     const answerId = req.params.id
-    // console.log(req.params.id)
+
     const answer = await Answer.findByPk(answerId)
-    // console.log(answer)
+
     answer.content = req.body.content
     await answer.save()
     res.sendStatus(201)
@@ -57,7 +57,7 @@ router.delete('/:id(\\d+)', asyncHandler(async (req, res) => {
 
 }));
 
-router.post('/:id/votes', asyncHandler(async (req, res) => {
+router.post('/:id/votes', requireAuth, asyncHandler(async (req, res) => {
     const answerId = req.params.id;
     const { userId } = req.session.auth;
     const { vote } = req.body;
