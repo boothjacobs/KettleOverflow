@@ -51,16 +51,7 @@
 
 ### Sarah: 
 
-Implementing upvotes/downvotes turned out to be a massive project, involving 140 lines of JavaScript, five helper functions, and database calls in three different route handlers. In order to display up-to-date vote tallies on the question pages, I ultimately built an object to store the result of the database calls in the route handler and passed it to the Pug file, while executing an explicit res.send command in the /votes post route to update the page in real time. The biggest issue was communicating data between Express routes, backend JavaScript, and Pug files.
-   
-> Sequelize helper function: 
-![Screen Shot 2021-05-07 at 2 15 38 PM](https://user-images.githubusercontent.com/75630072/117509285-cf8eaf80-af3e-11eb-8bae-26dc111c4e81.png)
-	
->In the GET call to display a question:
-   ![Screen Shot 2021-05-07 at 2 15 24 PM](https://user-images.githubusercontent.com/75630072/117509241-c271c080-af3e-11eb-9031-5e9ed432fd52.png)
-
->In the Pug mixin: ` #{answerVotes[answerId].length}`
->
+Implementing upvotes/downvotes turned out to be a massive project, involving 140 lines of JavaScript, five helper functions, and database calls in three different route handlers. The database request that we used to populate answers gave us access to total votes, but not an immediately accessible way to distinguish between upvotes and downvotes. The problem remained of how to display two different AnswerVote counts for each answer displaying on the page. At the time of this writing I think the best way to implement upvoting and downvoting on an indefinite number of responses per question would be to change the structure of the database so that up- and downvotes are separate models, which would allow for a single database call to immediately provide the current value of each.
 
 ### Lauren's Challenge
 In the event listener I wrote for the Edit Answer button, I found it difficult to grab both the ID and content of specific answers in the database. The answer content was being populated on the page through iteration in the pug file. This made it so there weren't specific classes or ids for each answer, so I set an id of "answer.id" on the edit button, and used event.target.id to grab the answer ID. To grab the correct answer content, I saved event.path[1].children[0] to a variable and then split that variable on the section of the innerHTML that started with "<". I assigned the split variable to "contentSplit" and then reassigned the textarea innerHTML to contentSplit[0].
