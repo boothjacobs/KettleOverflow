@@ -69,7 +69,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
         include: [User],
         where: {
             content: {
-                [Op.substring]: content,
+                [Op.iLike]: `%${content}%`,
             }
         }
     });
