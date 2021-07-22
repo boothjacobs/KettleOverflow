@@ -39,12 +39,12 @@ block content
                                         button(class='edit-answer' id=answer.id) Edit
                                         button(class='delete-answer' id=answer.id) Delete
 
-                    form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
-                            input(name="questionId" value=question.id type="hidden")
-                            div(class="answer-form-textarea")
-                                textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
-                            div
-                                button(type="submit" id="submit-answer") Submit Answer
+                form(class='answer-form' action=`/questions/${question.id}/answers`, method="post")
+                        input(name="questionId" value=question.id type="hidden")
+                        div(class="answer-form-textarea")
+                            textarea(name="content", cols="30", rows="10" placeholder="Write your answer here!")
+                        div
+                            button(type="submit" id="submit-answer") Submit Answer
             else
                 div(id='redirect')
                     h1 ☕Nothing to see here☕
