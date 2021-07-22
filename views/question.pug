@@ -17,8 +17,9 @@ block content
                 div(id='question-box')
                     p(class='question-content')= question.content
                     div(class='question-footer')
-                        +qUpvote(question.id)
-                        +qDownvote(question.id)
+                        div(class='votes')
+                            +qUpvote(question.id)
+                            +qDownvote(question.id)
                         if locals.user
                             if locals.user.id === question.userId
                                 button(class='edit') Edit
@@ -32,8 +33,9 @@ block content
                             div(class="remove-div" id='answer-box')
                                 p(class='answer-content' id=answer.id)= answer.content
                                 div(class='answer-footer')
-                                    +aUpvote(answer.id)
-                                    +aDownvote(answer.id)
+                                    div(class='votes')
+                                        +aUpvote(answer.id)
+                                        +aDownvote(answer.id)
                                 if locals.user
                                     if locals.user.id === answer.userId
                                         button(class='edit-answer' id=answer.id) Edit
