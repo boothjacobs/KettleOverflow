@@ -1,16 +1,20 @@
 
 mixin qUpvote(questionId)
-    div(class="qUpVoteTally") #{upvotes}
-    div(id=questionId class="question-up-vote") 🔼
+    div(class="vote-div")
+        div(class="qUpVoteTally") #{upvotes}
+        div(id=questionId class="question-up-vote") 🔼
 
 mixin qDownvote(questionId)
-    div(class="qDownVoteTally") #{downvotes}
-    div(id=questionId class="question-down-vote") 🔽
+    div(class="vote-div")
+        div(class="qDownVoteTally") #{downvotes}
+        div(id=questionId class="question-down-vote") 🔽
 
 mixin aUpvote(answerId)
-    div(class=`tally${answerId}`) #{answerVotes[answerId].length}
-    div(id=answerId class="answer-up-vote") 🔼
+    div(class="vote-div")
+        div(class=`tally${answerId}`) #{answerVotes[answerId].length}
+        div(id=answerId class="answer-up-vote") 🔼
 
 mixin aDownvote(answerId)
-    div(class=`tallyDown${answerId}`) #{answerVotes[answerId].length}
-    div(id=answerId class="answer-down-vote") 🔽
+    div(class="vote-div")
+        div(class=`tallyDown${answerId}`) #{answerVotes[answerId].length}
+        div(id=answerId class="answer-down-vote") 🔽

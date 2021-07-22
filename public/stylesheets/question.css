@@ -170,3 +170,16 @@
     color: #EFE4D4;
     background-color: #A9A454;
 }
+
+.votes {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.vote-div {
+    margin: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
