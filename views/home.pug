@@ -10,19 +10,31 @@ append head
 
 block content
   body(class="home-body")
-    div(class="sidebar")
-      div(id="link-1")
-        form(action="/users/demo" method="post" id="demo-form")
-          div: button(type="submit" class="sidebar-button") Demo User
-      div(id="link-2")
-        form(action=`/questions/${number}` method="get" id="random-form")
-            div: button(type="submit" class="sidebar-button") Random Question
-      div(id="link-3")
-        form(action="/questions/form" method="get" id="ask-question-form")
-            div: button(type="submit" class="sidebar-button") Ask A Question
-      div(id="link-4")
-        form(action="/about" method="get" id="about-form")
-            div: button(type="submit" class="sidebar-button") About
+    if !userId
+      div(class="sidebar")
+        div(id="link-1")
+          form(action="/users/demo" method="post" id="demo-form")
+            div: button(type="submit" class="sidebar-button") Demo User
+        div(id="link-2")
+          form(action=`/questions/${number}` method="get" id="random-form")
+              div: button(type="submit" class="sidebar-button") Random Question
+        div(id="link-3")
+          form(action="/questions/form" method="get" id="ask-question-form")
+              div: button(type="submit" class="sidebar-button") Ask A Question
+        div(id="link-4")
+          form(action="/about" method="get" id="about-form")
+              div: button(type="submit" class="sidebar-button") About
+    else
+      div(class="sidebar")
+        div(id="link-2")
+          form(action=`/questions/${number}` method="get" id="random-form")
+              div: button(type="submit" class="sidebar-button") Random Question
+        div(id="link-3")
+          form(action="/questions/form" method="get" id="ask-question-form")
+              div: button(type="submit" class="sidebar-button") Ask A Question
+        div(id="link-4")
+          form(action="/about" method="get" id="about-form")
+              div: button(type="submit" class="sidebar-button") About
     div(class="body-content")
       h1 Welcome
       p Cheers, Have A Cuppa

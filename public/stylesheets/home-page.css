@@ -18,6 +18,13 @@
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
+    padding: 20px;
+    height: 50px;
+    width: 200px;
+}
+
+.sidebar-button:hover {
+    background-color: #556B2F;
 }
 
 #link-1,
@@ -25,7 +32,6 @@
 #link-3,
 #link-4 {
     text-align: center;
-    padding: 30px;
     color: black;
 }
 
