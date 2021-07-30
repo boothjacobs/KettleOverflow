@@ -49,6 +49,7 @@ async function voteExists(questionId, userId) {
 };
 
 router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
+    const { userId } = req.session.auth
     const questions = await Question.findAll({
         include: [User],
         order: [['createdAt', 'DESC']],
@@ -59,7 +60,8 @@ router.get('/', csrfProtection, asyncHandler(async (req, res, next) => {
         csrfToken: req.csrfToken(),
         questions,
         title: 'Questions page',
-        number
+        number,
+        userId
     })
 }));
 
